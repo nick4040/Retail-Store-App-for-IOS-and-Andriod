@@ -11,7 +11,7 @@ export default function accountCreated() {
       <Text style={styles.message}>Your account has been created.</Text>
       <TouchableOpacity
         style={styles.button}
-        onPress={() => router.push('screens/Home')} //
+        onPress={() => router.push('screens/Home')}
       >
         <Text style={styles.buttonText}>Go to Home Page</Text>
       </TouchableOpacity>
