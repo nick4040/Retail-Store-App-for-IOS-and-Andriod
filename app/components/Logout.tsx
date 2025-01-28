@@ -11,14 +11,14 @@ export const UserLogOut: FC<{}> = (): ReactElement => {
       .then(async () => {
         const currentUser: Parse.User = await Parse.User.currentAsync();
         if (currentUser === null) {
-          Alert.alert('Success!', 'No user is logged in anymore!');
+          Alert.alert('Success!', 'No user is logged in anymore!', console.log('User has logged out'),);
         }
         // Navigate back to the login screen
         router.replace('/');
         return true;
       })
       .catch((error: object) => {
-        Alert.alert('Error!', error.message);
+        Alert.alert('Error!', error.message, console.log('User error please try again'),);
         return false;
       });
   };

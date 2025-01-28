@@ -16,7 +16,8 @@ export const UserLogIn: FC<{}> = (): ReactElement => {
       .then(async (loggedInUser: Parse.User) => {
         Alert.alert(
           'Success!',
-          `User ${loggedInUser.get('username')} has successfully signed in!`,
+          `you have successfully signed in!`,
+           console.log('User have logged in'),
         );
         const currentUser: Parse.User = await Parse.User.currentAsync();
         console.log(loggedInUser === currentUser);
@@ -24,7 +25,11 @@ export const UserLogIn: FC<{}> = (): ReactElement => {
         return true;
       })
       .catch((error: object) => {
-        Alert.alert('Error!', error.message);
+        Alert.alert(
+            'Error!',
+            error.message,
+            console.log('User error please try again'),
+        );
         return false;
       });
   };
