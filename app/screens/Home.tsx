@@ -7,7 +7,6 @@ const HomeFunction = () => {
   return (
     <View style={{ flex: 1 }}>
         <Text>Home</Text>
-        <Link href="screens/LogoutView" style={styles.link}>sign out of your account</Link>
         <Navbar/>
     </View>
 

@@ -1,11 +1,14 @@
 import { View, Text, StyleSheet } from 'react-native';
 import Navbar from '../components/navbar';
+import { ProfilePage } from "../components/profileInfo";
 
 export default function HomeFunction() {
   return (
     <View style={{ flex: 1 }}>
-        <Text>Profile</Text>
-        <Navbar/>
+        <ProfilePage/>
+          <View style={styles.navContainer}>
+                <Navbar/>
+          </View>
     </View>
   );
 }
@@ -15,5 +18,8 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+  },
+    navContainer: {
+      marginTop: 10,
   },
 });

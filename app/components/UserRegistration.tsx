@@ -5,6 +5,9 @@ import Parse from "parse/react-native";
 
 export const UserRegistration: FC<{}> = (): ReactElement => {
   const [username, setUsername] = useState("");
+  const [fname, setFname] = useState("");
+  const [lname, setLname] = useState("");
+  const [phoneNumber, setPhone] = useState("");
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
   const [age, setAge] = useState("");
@@ -13,6 +16,9 @@ export const UserRegistration: FC<{}> = (): ReactElement => {
 
   const doUserRegistration = async function (): Promise<boolean> {
     const usernameValue: string = username;
+    const fnameValue : string = fname;
+    const lnameValue : string = lname;
+    const phoneValue : string = phoneNumber;
     const passwordValue: string = password;
     const emailValue: string = email;
     const ageValue: number = Number(age); // Ensure age is a number
@@ -30,6 +36,9 @@ export const UserRegistration: FC<{}> = (): ReactElement => {
       const createdUser = await Parse.User.signUp(usernameValue, passwordValue, {
         email: emailValue,
         age: ageValue,
+        fname: fnameValue,
+        lname: lnameValue,
+        phoneNumber: phoneValue,
       });
 
       Alert.alert(
@@ -56,12 +65,31 @@ export const UserRegistration: FC<{}> = (): ReactElement => {
         onChangeText={(text) => setUsername(text)}
         autoCapitalize="none"
       />
+
       <TextInput
         style={styles.input}
         value={password}
         placeholder="Password"
         secureTextEntry
         onChangeText={(text) => setPassword(text)}
+      />
+      <TextInput
+        style={styles.input}
+        value={fname}
+        placeholder="First Name"
+        onChangeText={(text) => setFname(text)}
+      />
+      <TextInput
+        style={styles.input}
+        value={lname}
+        placeholder="Last Name"
+        onChangeText={(text) => setLname(text)}
+      />
+      <TextInput
+        style={styles.input}
+        value={phoneNumber}
+        placeholder="Phone Number"
+        onChangeText={(text) => setPhone(text)}
       />
       <TextInput
         style={styles.input}
