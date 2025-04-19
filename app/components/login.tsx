@@ -1,7 +1,9 @@
 import React, { FC, ReactElement, useState } from 'react';
 import { Alert, Image, Text, TextInput, TouchableOpacity, View, StyleSheet } from 'react-native';
-import Parse from 'parse/react-native';
+import { Link } from 'expo-router';
 import { useRouter } from 'expo-router';
+import Parse from 'parse/react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export const UserLogIn: FC<{}> = (): ReactElement => {
   const [username, setUsername] = useState('');
@@ -36,8 +38,11 @@ export const UserLogIn: FC<{}> = (): ReactElement => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Log In</Text>
+    <Image source={require('@/assets/images/mainLogo.png')} style={styles.logo}/>
+      <Text style={styles.title}>Login</Text>
+      <Link href="signUp" style={styles.signLink}>Please create a account here</Link>
       <View style={styles.form}>
+        <Text style={styles.loginText}>Username</Text>
         <TextInput
           style={styles.input}
           value={username}
@@ -47,6 +52,7 @@ export const UserLogIn: FC<{}> = (): ReactElement => {
           keyboardType="email-address"
           placeholderTextColor="#888"
         />
+        <Text style={styles.loginText}>Password</Text>
         <TextInput
           style={styles.input}
           value={password}
@@ -55,6 +61,7 @@ export const UserLogIn: FC<{}> = (): ReactElement => {
           onChangeText={(text) => setPassword(text)}
           placeholderTextColor="#888"
         />
+        <Link href="screens/passwordReset" style={styles.resetLink}>Reset Password</Link>
         <TouchableOpacity onPress={() => doUserLogIn()} style={styles.button}>
           <Text style={styles.buttonText}>Sign In</Text>
         </TouchableOpacity>
@@ -69,13 +76,15 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     padding: 20,
-    backgroundColor: '#f5f5f5',
+    backgroundColor: '#FFFFFF',
   },
   title: {
     fontSize: 24,
     fontWeight: 'bold',
-    marginBottom: 30,
+    marginBottom: 15,
     color: '#333',
+    flex: 1,
+    justifyContent: 'center',
   },
   form: {
     width: '100%',
@@ -95,11 +104,45 @@ const styles = StyleSheet.create({
     paddingVertical: 15,
     borderRadius: 5,
     alignItems: 'center',
+    marginTop: 50,
   },
   buttonText: {
     color: '#fff',
     fontSize: 16,
     fontWeight: 'bold',
   },
+  loginText: {
+    flex: 1,
+    justifyContent: 'left',
+    fontSize: 16,
+    fontWeight: 'bold',
+    marginBottom: 15,
+  },
+  signLink: {
+    flex: 1,
+    justifyContent: 'center',
+    color: '#0055FF',
+    fontSize: 16,
+    fontWeight: "bold",
+    marginBottom: 15,
+  },
+  resetLink: {
+      flex: 1,
+      justifyContent: 'left',
+      color: '#0055FF',
+      fontSize: 16,
+      fontWeight: "bold",
+  },
+  logo: {
+      height: 150,
+      width: 350,
+      bottom: 0,
+      left: 0,
+      position: 'relative',
+      resizeMode: 'contain',
+      marginBottom: 20,
+      marginTop: 20,
+  },
+
 });
 

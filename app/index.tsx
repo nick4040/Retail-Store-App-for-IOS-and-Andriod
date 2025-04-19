@@ -17,34 +17,16 @@ const logIn = () => {
     //add a sign up button somewhere on here
 
   return (
-      <SafeAreaView style={styles.container}>
-        <>
-          <Text style={styles.title}>React Native on Back4App</Text>
-          <Text>User registration tutorial</Text>
+      <View style={styles.defaultBackground}>
           <UserLogIn />
-          <Link href="signUp" style={styles.link}>Click here to sign up</Link>
-        </>
-      </SafeAreaView>
+      </View>
   );
 }
-
 const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      backgroundColor: "#fff",
-      alignItems: "center",
-      justifyContent: "center",
-    },
-    title: {
-      fontSize: 20,
-      fontWeight: "bold",
-    },
-    link: {
-        color: '#00008B',
-        fontSize: 20,
-        fontWeight: "bold",
-        marginTop: 25,
-        textDecorationLine: "underline",
-    },
+  defaultBackground: {
+      backgroundColor: '#FFFFFF',
+  },
+
 });
+
 export default logIn;

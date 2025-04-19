@@ -1,9 +1,11 @@
 import React, { FC, ReactElement, useEffect, useState } from 'react';
 import { Text, View, StyleSheet, TouchableOpacity } from 'react-native';
+import { useRouter } from 'expo-router';
 import Parse from 'parse/react-native';
 import Navbar from "./navbar"
 
 export const ProfilePage: FC<{}> = (): ReactElement => {
+  const router = useRouter();
   const [userData, setUserData] = useState({
     username: '',
     email: '',
@@ -38,7 +40,7 @@ export const ProfilePage: FC<{}> = (): ReactElement => {
         <View style={styles.infoRow}>
           <Text style={styles.label}>First Name:</Text>
           <Text style={styles.value}>{userData.fname}</Text>
-          <TouchableOpacity style={styles.button} onPress={() => console.log('Edit First Name')}>
+          <TouchableOpacity style={styles.button} onPress={() => router.push("screens/resetProfile")}>
             <Text style={styles.buttonText}>Edit</Text>
           </TouchableOpacity>
         </View>
@@ -46,7 +48,7 @@ export const ProfilePage: FC<{}> = (): ReactElement => {
         <View style={styles.infoRow}>
           <Text style={styles.label}>Last Name:</Text>
           <Text style={styles.value}>{userData.lname}</Text>
-          <TouchableOpacity style={styles.button} onPress={() => console.log('Edit Last Name')}>
+          <TouchableOpacity style={styles.button} onPress={() => router.push("screens/resetProfile")}>
             <Text style={styles.buttonText}>Edit</Text>
           </TouchableOpacity>
         </View>
@@ -54,7 +56,7 @@ export const ProfilePage: FC<{}> = (): ReactElement => {
         <View style={styles.infoRow}>
           <Text style={styles.label}>Email:</Text>
           <Text style={styles.value}>{userData.email}</Text>
-          <TouchableOpacity style={styles.button} onPress={() => console.log('Edit Email')}>
+          <TouchableOpacity style={styles.button} onPress={() => router.push("screens/resetProfile")}>
             <Text style={styles.buttonText}>Edit</Text>
           </TouchableOpacity>
         </View>
@@ -62,15 +64,12 @@ export const ProfilePage: FC<{}> = (): ReactElement => {
         <View style={styles.infoRow}>
           <Text style={styles.label}>Age:</Text>
           <Text style={styles.value}>{userData.age}</Text>
-          <TouchableOpacity style={styles.button} onPress={() => console.log('Edit Age')}>
-            <Text style={styles.buttonText}>Edit</Text>
-          </TouchableOpacity>
         </View>
 
         <View style={styles.infoRow}>
           <Text style={styles.label}>Phone:</Text>
           <Text style={styles.value}>{userData.phoneNumber}</Text>
-          <TouchableOpacity style={styles.button} onPress={() => console.log('Edit Phone Number')}>
+          <TouchableOpacity style={styles.button} onPress={() => router.push("screens/resetProfile")}>
             <Text style={styles.buttonText}>Edit</Text>
           </TouchableOpacity>
         </View>
@@ -80,7 +79,11 @@ export const ProfilePage: FC<{}> = (): ReactElement => {
               <Text style={styles.buttonText2}>Sign Out</Text>
             </TouchableOpacity>
 
-            <TouchableOpacity style={styles.removeButton} onPress={() => console.log('Remove Account')}>
+            <TouchableOpacity style={styles.button2} onPress={() => router.push("screens/passwordReset")}>
+              <Text style={styles.buttonText2}>Reset Your Password</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity style={styles.removeButton} onPress={() => router.push("screens/deleteAccountView")}>
               <Text style={styles.buttonText2}>Remove Account</Text>
             </TouchableOpacity>
           </View>
@@ -154,7 +157,7 @@ const styles = StyleSheet.create({
       paddingVertical: 12,
       borderRadius: 8,
       alignItems: 'center',
-      marginBottom: 10,
+      marginBottom: 25,
     },
     removeButton: {
       width: '80%',
