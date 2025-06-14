@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, Button, SafeAreaView } from 'react-native';
+import { View, Text, StyleSheet, Button, SafeAreaView, ImageBackground } from 'react-native';
 import { Link } from 'expo-router';
 import { UserLogIn } from "./components/login";
 import { config } from './constants/Keys';
@@ -17,16 +17,25 @@ const logIn = () => {
     //add a sign up button somewhere on here
 
   return (
-      <View style={styles.defaultBackground}>
+    <ImageBackground
+      source={require('@/assets/images/login_Background.jpg')} // Replace with your image path
+      style={styles.container}
+      resizeMode="cover"
+    >
+      <View>
           <UserLogIn />
       </View>
+    </ImageBackground>
   );
 }
 const styles = StyleSheet.create({
   defaultBackground: {
       backgroundColor: '#FFFFFF',
   },
-
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+  }
 });
 
 export default logIn;

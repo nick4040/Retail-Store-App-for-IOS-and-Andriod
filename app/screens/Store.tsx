@@ -1,12 +1,11 @@
 import { View, Text, StyleSheet } from 'react-native';
 import Navbar from '../components/navbar';
-import { GoldCardLogin } from '../components/goldLoginComponent';
 
-
-const dashboardFunction = () => {
+export default function HomeFunction() {
   return (
     <View style={{ flex: 1 }}>
-        <GoldCardLogin/>
+        <Text>Store</Text>
+        <Navbar/>
     </View>
   );
 }
@@ -18,5 +17,3 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
 });
-
-export default dashboardFunction;

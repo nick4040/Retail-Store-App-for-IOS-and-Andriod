@@ -17,8 +17,6 @@ const signUp = () => {
   return (
       <SafeAreaView style={styles.container}>
         <>
-          <Text style={styles.title}>React Native on Back4App</Text>
-          <Text>User registration tutorial</Text>
           <UserRegistration />
         </>
       </SafeAreaView>

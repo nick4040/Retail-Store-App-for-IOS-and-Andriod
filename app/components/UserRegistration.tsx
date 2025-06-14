@@ -1,5 +1,6 @@
 import React, { FC, ReactElement, useState } from "react";
-import { Alert, Button, StyleSheet, TextInput, View } from "react-native";
+import { Alert, Button, StyleSheet, TextInput, View, Text, TouchableOpacity} from "react-native";
+import { Link } from 'expo-router';
 import { useRouter } from "expo-router";
 import Parse from "parse/react-native";
 
@@ -58,6 +59,10 @@ export const UserRegistration: FC<{}> = (): ReactElement => {
 
   return (
     <View style={styles.container}>
+        <Text style={styles.title}>Create New Account</Text>
+        <Link href="/" style={styles.secondTitle}>
+            Already Registered? Log in here.
+        </Link>
       <TextInput
         style={styles.input}
         value={username}
@@ -105,7 +110,9 @@ export const UserRegistration: FC<{}> = (): ReactElement => {
         keyboardType="numeric"
         onChangeText={(text) => setAge(text)}
       />
-      <Button title="Sign Up" onPress={() => doUserRegistration()} />
+      <TouchableOpacity onPress={() => doUserRegistration()} style={styles.button}>
+        <Text style={styles.buttonText}>Sign Up</Text>
+      </TouchableOpacity>
     </View>
   );
 };
@@ -115,17 +122,43 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     padding: 20,
-    backgroundColor: "#f5f5f5",
+    backgroundColor: "#ffffff",
+  },
+    title: {
+      fontSize: 28,
+      fontWeight: 'bold',
+      color: '#000000',
+      marginBottom: 25,
+      textAlign: 'center',
+    },
+  secondTitle: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    color: '#00000',
+    marginTop: 10,
+    marginBottom: 10,
+    textAlign: 'center',
   },
   input: {
-    height: 40,
-    marginBottom: 10,
-    backgroundColor: "#fff",
+    height: 60,
+    marginTop: 5,
+    marginBottom: 5,
+    backgroundColor: "#ffe497",
     paddingHorizontal: 10,
-    borderRadius: 5,
-    borderWidth: 1,
-    borderColor: "#ccc",
+    borderRadius: 20,
   },
+    button: {
+      backgroundColor: '#ffe497',
+      paddingVertical: 12,
+      borderRadius: 20,
+      alignItems: 'center',
+      marginTop: 10,
+    },
+     buttonText: {
+        color: '#ffffff',
+        fontSize: 16,
+        fontWeight: 'bold',
+      },
 });
 
 export default UserRegistration;

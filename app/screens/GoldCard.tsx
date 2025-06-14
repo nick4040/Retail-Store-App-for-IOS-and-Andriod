@@ -1,120 +1,170 @@
-import { View, Text, StyleSheet, Button, Image, ScrollView, TouchableOpacity  } from 'react-native';
+// react imports
+import { View, Text, StyleSheet, Button, Image, ScrollView, TouchableOpacity, Dimensions} from 'react-native';
+import { Link } from 'expo-router';
 import React, { useState } from "react";
-import Navbar from '../components/navbar';
 import { useRouter } from 'expo-router';
+
+//components
+import Navbar from '../components/navbar';
+import CheckRole from '../components/roleComponents/checkRole';
+
+// Get screen width to make image fit
+const { width } = Dimensions.get('window');
+const screenWidth = Dimensions.get('window').width;
 
 const GoldCard = () => {
     const router = useRouter();
 
   return (
     <ScrollView contentContainerStyle={styles.scrollContainer}>
-        <View style={styles.container}>
-            <Image source={require('@/assets/images/goldCardLogo.png')} style={styles.logo}/>
-              <View style={styles.middleSection}>
-                <Text style={styles.textTitle}>Gold Program</Text>
-                  <TouchableOpacity onPress={() => router.push("screens/createGoldCard")}>
-                    <Text>Create Your Gold Card Account</Text>
-                  </TouchableOpacity>
-                  <TouchableOpacity onPress={() => router.push("screens/goldLogin")}>
-                    <Text>Login to your goldCard</Text>
-                  </TouchableOpacity>
-                  <TouchableOpacity onPress={() => router.push("screens/platinumCard/platinumSignup")}>
-                    <Text>Create your Platinum Card</Text>
-                  </TouchableOpacity>
-                  <TouchableOpacity onPress={() => router.push("screens/platinumCard/platinumLogin")}>
-                    <Text>Login to your Platinum Card</Text>
-                  </TouchableOpacity>
-                <Text style={styles.textEnd}>Click here to view more information</Text>
-              </View>
-              <View style={styles.middleSection}>
-                <Text style={styles.textTitle}>Vip Program</Text>
-                <Text style={styles.textEnd}>Click here to view more information</Text>
-              </View>
-            <Navbar/>
+    <CheckRole/>
+        <View style={styles.topHeader}>
+            <Image source={require('@/assets/images/top_screen_arrow.png')} style={styles.noticeIcon} />
+            <Text style={styles.location} >Northampton, MA</Text>
+            <Image source={require('@/assets/images/home_bell.png')} style={styles.arrowIcon} />
         </View>
+
+        <View style={styles.headerContainer}>
+            <Image
+                source={require('@/assets/images/GoldCard/goldcard.png')}
+                style={styles.headerImg}
+            />
+        </View>
+
+            {/* main home page menu */}
+            <View style={styles.menuContainer}>
+              <View style={styles.menuItem}>
+                <Image source={require('@/assets/images/GoldCard/login.png')} style={styles.menuIcon} />
+                <Link href="screens/Home" style={styles.menuLink}>Shop</Link>
+              </View>
+              <View style={styles.menuItem}>
+                <Image source={require('@/assets/images/GoldCard/spade_holder.png')} style={styles.menuIconSpacer} />
+              </View>
+              <View style={styles.menuItem}>
+                <Image source={require('@/assets/images/GoldCard/menu.png')} style={styles.menuIcon} />
+                <Link href="screens/Vip" style={styles.menuLink}>spacer</Link>
+              </View>
+              <View style={styles.menuItem}>
+                <Image source={require('@/assets/images/GoldCard/spade_holder.png')} style={styles.menuIconSpacer} />
+              </View>
+              <View style={styles.menuItem}>
+                <Image source={require('@/assets/images/GoldCard/deals.png')} style={styles.menuIcon} />
+                <Link href="screens/Profile" style={styles.menuLink}>Profile</Link>
+              </View>
+            </View>
+
+        <View style={styles.middleSection}>
+            <Text style={styles.textTitle}>Vip Program</Text>
+            <Text style={styles.textEnd}>
+
+                                         One KashMakena Birthday 1/8 for $1 or One Pre-Roll   
+
+                                         Special VIP deals exclusive to Gold Members only.
+
+                                         Gold Member VIP Pricing
+
+                                         10% Off Accessories
+
+                                         20% Off Merchandise
+
+                                         First Monday of every month 30% off regular priced items (not stackable on Flash Sale or Daily Deals or any other discounts)
+
+                                         Thursday only 5% off the entire cart stackable on any discounts or sales.
+
+                                         1 lottery entry at the end of month for a give away. Winner will be announced the 1st week of the month through email.
+
+            </Text>
+        </View>
+        <Navbar/>
     </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "black",
-  },
   scrollContainer: {
     flexGrow: 1,
-    justifyContent: 'space-between'
+    justifyContent: 'space-between',
+    backgroundColor: "white",
   },
-      middleSection: {
-        flex: 3,
-        backgroundColor: "#B70A7B",
-        justifyContent: "center",
-        alignItems: "center",
-        borderRadius: 10,
+    menuContainer: {
+        flexDirection: 'row',
+        justifyContent: 'space-evenly',
+        alignItems: 'center',
+        paddingVertical: 10,
+        backgroundColor: '#fff',
         marginBottom: 30,
-        marginRight: 40,
-        marginLeft: 40,
+        marginTop: 25,
       },
-    textTitle: {
-        color: "white",
-        fontSize: 18,
-        fontWeight: "bold",
-        top: 5,
-        position: 'absolute',
-    },
-    textEnd: {
-        color: "white",
+      menuItem: {
+        alignItems: 'center',
+      },
+      menuIcon: {
+        width: 55,
+        height: 55,
+        marginBottom: 4,
+      },
+      menuIconSpacer: {
+        width: 40,
+        height: 40,
+        marginBottom: 4,
+      },
+      menuLink: {
         fontSize: 12,
-        fontWeight: "bold",
-        textAlign: 'center',
-        top: 10,
-        position: 'absolute',
+        color: '#333',
+        textDecorationLine: 'none',
+      },
+    headerImg: {
+      width: screenWidth * 0.8,
+      height: screenWidth * 0.5,
+      resizeMode: 'contain',
     },
-    logo: {
-        height: 150,
-        width: 350,
-        bottom: 0,
-        left: 0,
+    headerContainer: {
+      position: 'relative',
+      left: 40,
+      width: screenWidth * .85,
+      height: screenWidth * 0.4,
+      marginBottom: 20,
+      marginTop: 15,
+    },
+    location: {
+        marginRight: 0,
         position: 'relative',
-        resizeMode: 'contain',
-        marginBottom: 20,
-        marginTop: 20,
+        right: 80,
+    },
+    noticeIcon: {
+        marginRight: 0,
+    },
+    topHeader: {
+        flexDirection: 'row',
+        justifyContent: 'space-around',
+        alignItems: 'center',
+        backgroundColor: "white",
     },
     middleSection: {
-      flex: 2,
-      backgroundColor: "#B70A7B",
-      justifyContent: "center",
-      alignItems: "center",
+      height: screenWidth * 0.9,
+      width: screenWidth * 0.85,
+      backgroundColor: "#ffbfd8",
       borderRadius: 10,
-      marginBottom: 30,
-      marginRight: 40,
-      marginLeft: 40,
+      position: 'relative',
+      left: 30,
     },
   textTitle: {
       color: "white",
       fontSize: 18,
       fontWeight: "bold",
-      top: 5,
-      position: 'absolute',
+      textAlign: 'center',
+      marginTop: 10,
   },
   textEnd: {
       color: "white",
-      fontSize: 12,
+      fontSize: 14,
       fontWeight: "bold",
-      bottom: 5,
-      position: 'absolute',
-      textAlign: 'center'
+      textAlign: 'center',
+      lineHeight: 30,
+      marginTop: 15,
+      marginBottom: 15,
   },
-  logo: {
-      height: 150,
-      width: 350,
-      bottom: 0,
-      left: 0,
-      position: 'relative',
-      resizeMode: 'contain',
-      marginBottom: 20,
-      marginTop: 20,
-  },
+
 });
 
 export default GoldCard;

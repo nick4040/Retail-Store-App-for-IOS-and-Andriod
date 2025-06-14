@@ -1,5 +1,6 @@
 import React, { FC, ReactElement, useState } from 'react';
-import { Alert, Image, Text, TextInput, TouchableOpacity, View, StyleSheet } from 'react-native';
+import { Alert, Image, Text, TextInput, TouchableOpacity, View, StyleSheet, ImageBackground } from 'react-native';
+
 import { Link } from 'expo-router';
 import { useRouter } from 'expo-router';
 import Parse from 'parse/react-native';
@@ -37,112 +38,121 @@ export const UserLogIn: FC<{}> = (): ReactElement => {
   };
 
   return (
-    <View style={styles.container}>
-    <Image source={require('@/assets/images/mainLogo.png')} style={styles.logo}/>
-      <Text style={styles.title}>Login</Text>
-      <Link href="signUp" style={styles.signLink}>Please create a account here</Link>
-      <View style={styles.form}>
-        <Text style={styles.loginText}>Username</Text>
-        <TextInput
-          style={styles.input}
-          value={username}
-          placeholder="Username"
-          onChangeText={(text) => setUsername(text)}
-          autoCapitalize="none"
-          keyboardType="email-address"
-          placeholderTextColor="#888"
-        />
-        <Text style={styles.loginText}>Password</Text>
-        <TextInput
-          style={styles.input}
-          value={password}
-          placeholder="Password"
-          secureTextEntry
-          onChangeText={(text) => setPassword(text)}
-          placeholderTextColor="#888"
-        />
-        <Link href="screens/passwordReset" style={styles.resetLink}>Reset Password</Link>
-        <TouchableOpacity onPress={() => doUserLogIn()} style={styles.button}>
-          <Text style={styles.buttonText}>Sign In</Text>
-        </TouchableOpacity>
+
+      <View style={styles.overlay}>
+      <Image source={require('@/assets/images/vip_girl_white.png')} style={styles.logoGirl}/>
+        <Text style={styles.title}>Welcome to</Text>
+        <Image source={require('@/assets/images/kash_logo.png')}/>
+        <Text style={styles.secondTitle}>The Most Innovative Cannabis App.</Text>
+
+        <View style={styles.form}>
+          <TextInput
+            style={styles.input}
+            value={username}
+            placeholder="Username"
+            onChangeText={(text) => setUsername(text)}
+            autoCapitalize="none"
+            keyboardType="email-address"
+            placeholderTextColor="#888"
+          />
+
+          <TextInput
+            style={styles.input}
+            value={password}
+            placeholder="Password"
+            secureTextEntry
+            onChangeText={(text) => setPassword(text)}
+            placeholderTextColor="#888"
+          />
+
+          <Link href="screens/passwordReset" style={styles.resetLink}>
+            Reset Password
+          </Link>
+
+          <TouchableOpacity onPress={() => doUserLogIn()} style={styles.button}>
+            <Text style={styles.buttonText}>Sign In</Text>
+          </TouchableOpacity>
+            <Link href="signUp" style={styles.signLink}>
+              Don’t Have an Account? Sign Up Now
+            </Link>
+        </View>
       </View>
-    </View>
   );
 };
 
 const styles = StyleSheet.create({
+    logoGirl: {
+        textAlign: 'center',
+     },
   container: {
     flex: 1,
     justifyContent: 'center',
-    alignItems: 'center',
-    padding: 20,
-    backgroundColor: '#FFFFFF',
   },
-  title: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    marginBottom: 15,
-    color: '#333',
+  overlay: {
     flex: 1,
     justifyContent: 'center',
+    alignItems: 'center',
+    paddingHorizontal: 20,
+  },
+  title: {
+    fontSize: 28,
+    fontWeight: 'bold',
+    color: '#fff',
+    marginBottom: 10,
+  },
+  secondTitle: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    color: '#fff',
+    marginTop: 10,
+  },
+  signLink: {
+    color: '#000000',
+    fontSize: 16,
+    fontWeight: 'bold',
+    marginTop: 55,
+    textAlign: 'center',
   },
   form: {
     width: '100%',
-  },
-  input: {
-    height: 50,
-    marginBottom: 15,
-    backgroundColor: '#fff',
-    borderRadius: 5,
-    paddingHorizontal: 15,
-    fontSize: 16,
-    borderWidth: 1,
-    borderColor: '#ddd',
-  },
-  button: {
-    backgroundColor: '#007BFF',
-    paddingVertical: 15,
-    borderRadius: 5,
-    alignItems: 'center',
-    marginTop: 50,
-  },
-  buttonText: {
-    color: '#fff',
-    fontSize: 16,
-    fontWeight: 'bold',
+    maxWidth: 400,
+    borderRadius: 10,
+    padding: 20,
   },
   loginText: {
-    flex: 1,
-    justifyContent: 'left',
     fontSize: 16,
-    fontWeight: 'bold',
-    marginBottom: 15,
+    marginBottom: 5,
+    color: '#333',
   },
-  signLink: {
-    flex: 1,
-    justifyContent: 'center',
-    color: '#0055FF',
-    fontSize: 16,
-    fontWeight: "bold",
+  input: {
+      borderColor: '#000000',  // Corrected with #
+    borderWidth: 1,          // Added for 2px border
     marginBottom: 15,
+    padding: 10,
+    borderRadius: 5,
+    backgroundColor: '#faf6f3',
+    color: '#000',
   },
   resetLink: {
-      flex: 1,
-      justifyContent: 'left',
-      color: '#0055FF',
-      fontSize: 16,
-      fontWeight: "bold",
+    color: '#007BFF',
+    textAlign: 'right',
+    marginBottom: 20,
   },
-  logo: {
-      height: 150,
-      width: 350,
-      bottom: 0,
-      left: 0,
-      position: 'relative',
-      resizeMode: 'contain',
-      marginBottom: 20,
-      marginTop: 20,
-  },
-
+    button: {
+      backgroundColor: '#faf6f3',
+      paddingVertical: 12,
+      borderRadius: 5,
+      borderColor: '#000000',  // Corrected with #
+      borderWidth: 1,          // Added for 2px border
+      alignItems: 'center',
+    },
+     buttonText: {
+        color: '#ff66a2',
+        fontSize: 16,
+        fontWeight: 'bold',
+      },
 });
+
+export default UserLogIn;
+
 

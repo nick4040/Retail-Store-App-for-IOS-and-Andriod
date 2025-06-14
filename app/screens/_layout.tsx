@@ -13,6 +13,7 @@ export default function HomeLayout() {
       <Stack.Screen name="GoldCard" />
       <Stack.Screen name="Vip" />
       <Stack.Screen name="LogoutView"/>
+      <Stack.Screen name="Store"/>
       <Stack.Screen name="resetProfile"/>
       <Stack.Screen name="deleteAccountView"/>
       <Stack.Screen name="createGoldCard"/>
