@@ -1,10 +1,10 @@
 import { View, Text, StyleSheet } from 'react-native';
-import Navbar from '../components/navbar';
+import Navbar from '../../components/navbar';
 
-export default function HomeFunction() {
+export default function goldMenuFunction() {
   return (
     <View style={{ flex: 1 }}>
-        <Text>Store</Text>
+        <Text>Vip</Text>
         <Navbar/>
     </View>
   );

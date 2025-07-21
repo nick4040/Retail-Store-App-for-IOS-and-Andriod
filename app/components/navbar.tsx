@@ -1,65 +1,95 @@
 import React from 'react';
 import { View, Image, StyleSheet } from 'react-native';
 import { Link } from 'expo-router';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { useFonts } from 'expo-font';
+import AppLoading from 'expo-app-loading';
 
-const Navbar = () => {
+/** Base height of the bar (icons + label area, before safe‑area) */
+const TAB_BAR_HEIGHT = 64;
+
+const Navbar: React.FC = () => {
+
+   const [fontsLoaded] = useFonts({
+       'Lobster-Regular': require('@/assets/fonts/Lobster-Regular.ttf'),
+       'TT-Hoves-Regular': require('@/assets/fonts/TT-Hoves-Regular.ttf'),
+     });
+
+     if (!fontsLoaded) {
+         <AppLoading />
+       }
+
+  const insets = useSafeAreaInsets();           // handles iPhone 15 “Dynamic Island”, etc.
+  const bottomPad = insets.bottom;              // usually 0 on Android, >0 on iOS with notch
+
   return (
-    <View style={styles.container}>
-      <View style={styles.navContainer}>
-        <View style={styles.navItem}>
-          <Image source={require('@/assets/images/home_home_icon.png')} style={styles.icon} />
-          <Link href="screens/Home" style={styles.link}>Home</Link>
-        </View>
-        <View style={styles.navItem}>
-          <Image source={require('@/assets/images/home_vip.png')} style={styles.icon} />
-          <Link href="screens/Vip" style={styles.link}>Vip</Link>
-        </View>
-        <View style={styles.navItem}>
-          <Image source={require('@/assets/images/shop_nav.png')} style={styles.icon} />
-          <Link href="screens/Store" style={styles.link}>Shop</Link>
-        </View>
-        <View style={styles.navItem}>
-          <Image source={require('@/assets/images/profile_nav.png')} style={styles.icon} />
-          <Link href="screens/Profile" style={styles.link}>Profile</Link>
-        </View>
-      </View>
+    <View style={[styles.navBar, { paddingBottom: bottomPad }]}>
+      <NavItem icon={require('@/assets/images/home_home_icon.png')} href="screens/Home" label="Home" />
+      <NavItem icon={require('@/assets/images/home_vip.png')}  href="screens/Vip"  label="Vip"  />
+      <NavItem icon={require('@/assets/images/shop_nav.png')}  href="https://kashmakena.squarespace.com/merch" label="Shop" />
+      <NavItem icon={require('@/assets/images/profile_nav.png')} href="screens/Profile" label="Profile" />
     </View>
   );
 };
 
+/* ------------------------------------------------------------------ *
+ *  Reusable nav item
+ * ------------------------------------------------------------------ */
+interface NavItemProps {
+  icon: any;          // local image require(...)
+  href: string;
+  label: string;
+}
+const NavItem: React.FC<NavItemProps> = ({ icon, href, label }) => (
+  <View style={styles.navItem}>
+    <Image source={icon} style={styles.icon} resizeMode="contain" />
+    <Link href={href} style={styles.link}>
+      {label}
+    </Link>
+  </View>
+);
+
+export default Navbar;
+
+/* ------------------------------------------------------------------ *
+ *  Styles
+ * ------------------------------------------------------------------ */
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'flex-end',
-    alignItems: 'center',
-  },
-  navContainer: {
-    backgroundColor: '#ffffff',
-    paddingVertical: 12,
+  /* Fixed bar that overlays the bottom of the window */
+  navBar: {
+    position: 'absolute',
+    left: 0,
+    right: 0,
+    bottom: 0,
+
+    height: TAB_BAR_HEIGHT,
     flexDirection: 'row',
     justifyContent: 'space-around',
     alignItems: 'center',
-    width: '100%',
-    position: 'absolute',
-    bottom: 0,
+
+    backgroundColor: '#fff',
     borderTopWidth: 1,
     borderColor: '#ddd',
+    zIndex: 100,                     // ensures it sits above page content
   },
+
   navItem: {
     alignItems: 'center',
-    marginHorizontal: 16,
+    justifyContent: 'center',
   },
+
   icon: {
-    width: 36, // Increased width
-    height: 36, // Increased height
-    marginBottom: 6,
+    width: 40,
+    height: 40,
+    marginBottom: 4,
   },
+
   link: {
-    fontSize: 16, // Increased font size
-    color: '#888888',
+    fontSize: 12,
+    color: '#666',
     textDecorationLine: 'none',
     fontWeight: '600',
+    fontFamily: 'TT-Hoves-Regular',
   },
 });
 
-export default Navbar;

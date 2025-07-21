@@ -1,17 +1,17 @@
-import React, { FC, ReactElement, useState } from 'react';
-import { Alert, Text, TextInput, TouchableOpacity, View, StyleSheet } from 'react-native';
+import React, { FC, ReactElement } from 'react';
+import { Alert, Text, TouchableOpacity, View, StyleSheet } from 'react-native';
 import Parse from 'parse/react-native';
 import { useNavigation } from '@react-navigation/native';
 
 export const UserResetPassword: FC<{}> = (): ReactElement => {
   const navigation = useNavigation();
-  const [email, setEmail] = useState('');
 
   const doUserPasswordReset = async (): Promise<boolean> => {
-    const emailValue: string = email;
+    // Replace this with real email logic if needed
+    const emailValue: string = 'your@email.com';
     return await Parse.User.requestPasswordReset(emailValue)
       .then(() => {
-        Alert.alert('Success!', `Please check ${email} to proceed with password reset.`);
+        Alert.alert('Success!', `Please check ${emailValue} to proceed with password reset.`);
         navigation.navigate('Login');
         return true;
       })
@@ -22,73 +22,55 @@ export const UserResetPassword: FC<{}> = (): ReactElement => {
   };
 
   return (
-    <View style={styles.loginWrapper}>
-      <View style={styles.form}>
-        <Text style={styles.text}>Please enter your account email to reset your password:</Text>
-        <TextInput
-          style={styles.input}
-          value={email}
-          placeholder={'Your account email'}
-          onChangeText={(text) => setEmail(text)}
-          autoCapitalize={'none'}
-          keyboardType={'email-address'}
-        />
-        <TouchableOpacity onPress={doUserPasswordReset} style={styles.buttonContainer}>
-          <View style={styles.button}>
-            <Text style={styles.buttonLabel}>Request password reset</Text>
-          </View>
-        </TouchableOpacity>
-      </View>
+    <View style={styles.container}>
+      <Text style={styles.title}>Change your{'\n'}password</Text>
+      <Text style={styles.subtitle}>
+        A email will be sent to you please{'\n'}go reset your password there and{'\n'}log back in
+      </Text>
+
+      <TouchableOpacity style={styles.button} onPress={doUserPasswordReset}>
+        <Text style={styles.buttonText}>Change Password</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity style={styles.button} onPress={() => navigation.goBack()}>
+        <Text style={styles.buttonText}>Go Back</Text>
+      </TouchableOpacity>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  loginWrapper: {
+  container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    padding: 20,
-    backgroundColor: '#f5f5f5',
-  },
-  form: {
-    width: '100%',
-    maxWidth: 400,
     backgroundColor: '#fff',
-    padding: 20,
-    borderRadius: 10,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.2,
-    shadowRadius: 4,
-    elevation: 5,
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingHorizontal: 30,
   },
-  text: {
-    fontSize: 16,
-    marginBottom: 10,
+  title: {
+    fontSize: 28,
+    fontWeight: 'bold',
+    textAlign: 'center',
+    marginBottom: 20,
+    color: '#000',
+  },
+  subtitle: {
+    fontSize: 14,
+    textAlign: 'center',
+    marginBottom: 40,
     color: '#333',
   },
-  input: {
-    height: 40,
-    borderColor: '#ccc',
-    borderWidth: 1,
-    borderRadius: 5,
-    paddingHorizontal: 10,
-    marginBottom: 20,
-    backgroundColor: '#fff',
-  },
-  buttonContainer: {
-    alignItems: 'center',
-  },
   button: {
-    backgroundColor: '#007bff',
-    paddingVertical: 10,
-    paddingHorizontal: 20,
-    borderRadius: 5,
+    width: 250,
+    backgroundColor: '#fde68a', // Soft yellow
+    paddingVertical: 14,
+    borderRadius: 12,
+    alignItems: 'center',
+    marginBottom: 20,
   },
-  buttonLabel: {
-    color: '#fff',
-    fontSize: 16,
+  buttonText: {
     fontWeight: 'bold',
+    fontSize: 16,
+    color: '#fff',
   },
 });

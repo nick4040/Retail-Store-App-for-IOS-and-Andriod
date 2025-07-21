@@ -66,7 +66,7 @@ export const UserLogIn: FC<{}> = (): ReactElement => {
           />
 
           <Link href="screens/passwordReset" style={styles.resetLink}>
-            Reset Password
+            Forgot Password?
           </Link>
 
           <TouchableOpacity onPress={() => doUserLogIn()} style={styles.button}>
@@ -110,7 +110,7 @@ const styles = StyleSheet.create({
     color: '#000000',
     fontSize: 16,
     fontWeight: 'bold',
-    marginTop: 55,
+    marginTop: 200,
     textAlign: 'center',
   },
   form: {
@@ -134,7 +134,7 @@ const styles = StyleSheet.create({
     color: '#000',
   },
   resetLink: {
-    color: '#007BFF',
+    color: '#000000',
     textAlign: 'right',
     marginBottom: 20,
   },

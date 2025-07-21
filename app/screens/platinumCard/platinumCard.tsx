@@ -3,6 +3,8 @@ import { View, Text, StyleSheet, Button, Image, ScrollView, TouchableOpacity, Di
 import { Link } from 'expo-router';
 import React, { useState } from "react";
 import { useRouter } from 'expo-router';
+import { useFonts } from 'expo-font';
+import AppLoading from 'expo-app-loading';
 
 //components
 import Navbar from '../../components/navbar';
@@ -15,13 +17,35 @@ const screenWidth = Dimensions.get('window').width;
 const platinumCard = () => {
     const router = useRouter();
 
+    const [fontsLoaded] = useFonts({
+            'Lobster-Regular': require('@/assets/fonts/Lobster-Regular.ttf'),
+            'TT-Hoves-Regular': require('@/assets/fonts/TT-Hoves-Regular.ttf'),
+          });
+
+    if (!fontsLoaded) {
+        <AppLoading />
+    }
+
   return (
     <ScrollView contentContainerStyle={styles.scrollContainer}>
     <CheckRole/>
+
         <View style={styles.topHeader}>
-            <Image source={require('@/assets/images/top_screen_arrow.png')} style={styles.noticeIcon} />
-            <Text style={styles.location} >Northampton, MA</Text>
-            <Image source={require('@/assets/images/home_bell.png')} style={styles.arrowIcon} />
+          <View style={styles.textContainer}>
+            <Text style={styles.topTextDefault}>Welcome back</Text>
+            <Text style={styles.topTextName}>Alfredo Torres</Text>
+            <View style={styles.memberContainer}>
+              <Image
+                source={require('@/assets/images/header_crown_icon.png')} // 🔁 Replace with your crown image path
+                style={styles.crownIcon}
+              />
+              <Text style={styles.topTextDefault}> PLATINUM MEMBER</Text>
+            </View>
+          </View>
+          <Image
+            source={require('@/assets/images/header_profile_photo.png')} // ✅ Replace with actual profile image source
+            style={styles.profileImage}
+          />
         </View>
 
         <View style={styles.headerContainer}>
@@ -34,44 +58,36 @@ const platinumCard = () => {
             {/* main home page menu */}
             <View style={styles.menuContainer}>
               <View style={styles.menuItem}>
-                <Image source={require('@/assets/images/GoldCard/login.png')} style={styles.menuIcon} />
-                <Link href="screens/Home" style={styles.menuLink}>Shop</Link>
+                <Image source={require('@/assets/images/GoldCard/crown.png')} style={styles.menuIcon} />
+                <Link href="screens/platinumCard/platinumCardNews" style={styles.menuLink}>Platinum Card News</Link>
               </View>
               <View style={styles.menuItem}>
                 <Image source={require('@/assets/images/GoldCard/spade_holder.png')} style={styles.menuIconSpacer} />
               </View>
               <View style={styles.menuItem}>
                 <Image source={require('@/assets/images/GoldCard/menu.png')} style={styles.menuIcon} />
-                <Link href="screens/Vip" style={styles.menuLink}>spacer</Link>
+                <Link href="screens/Vip" style={styles.menuLink}>Coming Soon!</Link>
               </View>
               <View style={styles.menuItem}>
                 <Image source={require('@/assets/images/GoldCard/spade_holder.png')} style={styles.menuIconSpacer} />
               </View>
               <View style={styles.menuItem}>
                 <Image source={require('@/assets/images/GoldCard/deals.png')} style={styles.menuIcon} />
-                <Link href="screens/Profile" style={styles.menuLink}>Profile</Link>
+                <Link href="screens/platinumCard/platinumCardDeal" style={styles.menuLink}>Platinum Card Deals</Link>
               </View>
             </View>
 
         <View style={styles.middleSection}>
             <Text style={styles.textTitle}>Vip Program</Text>
             <Text style={styles.textEnd}>
-
-                                         One KashMakena Birthday 1/8 for $1 or One Pre-Roll   
-
-                                         Special VIP deals exclusive to Gold Members only.
-
-                                         Gold Member VIP Pricing
-
-                                         10% Off Accessories
-
-                                         20% Off Merchandise
-
-                                         First Monday of every month 30% off regular priced items (not stackable on Flash Sale or Daily Deals or any other discounts)
-
-                                         Thursday only 5% off the entire cart stackable on any discounts or sales.
-
-                                         1 lottery entry at the end of month for a give away. Winner will be announced the 1st week of the month through email.
+              • Free Claw Machine Play — 2nd Monday each month{'\n\n'}
+              • Free Spin Wheel — 1st Monday each month{'\n\n'}
+              • 5% Off HUSH & VIP{'\n\n'}
+              • Birthday Gift: 1g Pre-Roll or 3.5g KashMakena (3 days before/after){'\n\n'}
+              • 30% Off KashMakena — Every Monday (non stackable){'\n\n'}
+              • Private Event Access (Greenfield){'\n\n'}
+              • Monthly raffle prize drawing{'\n\n'}
+              • Lottery raffle for a 7 day vacation package{'\n\n'}
 
             </Text>
         </View>
@@ -83,9 +99,45 @@ const platinumCard = () => {
 const styles = StyleSheet.create({
   scrollContainer: {
     flexGrow: 1,
-    justifyContent: 'space-between',
     backgroundColor: "white",
+    paddingBottom: 100, // Keeps bottom content above navbar
   },
+    topHeader: {
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+      marginLeft: 30,
+      marginRight: 30,
+      marginTop: 20,
+    },
+    textContainer: {
+      flexDirection: 'column',
+    },
+    topTextDefault: {
+      color: 'black',
+      fontSize: 14,
+      fontWeight: '500',
+    },
+    topTextName: {
+      color: '#ffbfd8',
+      fontSize: 20,
+      fontWeight: 'bold',
+    },
+    memberContainer: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      marginTop: 4,
+    },
+    crownIcon: {
+      width: 16,
+      height: 16,
+      marginRight: 4,
+    },
+    profileImage: {
+      width: 70,
+      height: 70,
+      borderRadius: 35,
+    },
     menuContainer: {
         flexDirection: 'row',
         justifyContent: 'space-evenly',
@@ -112,6 +164,7 @@ const styles = StyleSheet.create({
         fontSize: 12,
         color: '#333',
         textDecorationLine: 'none',
+        fontFamily: 'TT-Hoves-Regular',
       },
     headerImg: {
       width: screenWidth * 0.8,
@@ -134,35 +187,31 @@ const styles = StyleSheet.create({
     noticeIcon: {
         marginRight: 0,
     },
-    topHeader: {
-        flexDirection: 'row',
-        justifyContent: 'space-around',
-        alignItems: 'center',
-        backgroundColor: "white",
-    },
     middleSection: {
-      height: screenWidth * 0.9,
-      width: screenWidth * 0.85,
-      backgroundColor: "#ffbfd8",
-      borderRadius: 10,
-      position: 'relative',
-      left: 30,
+    backgroundColor: '#ffbfd8',
+    borderRadius: 10,
+    paddingVertical: 16,
+    paddingHorizontal: 12,
+    marginBottom: 30,
+    width: '85%',
+    alignSelf: 'center',
     },
   textTitle: {
       color: "white",
-      fontSize: 18,
+      fontSize: 26,
       fontWeight: "bold",
       textAlign: 'center',
       marginTop: 10,
+      fontFamily: 'Lobster-Regular',
+      marginBottom: 15,
   },
   textEnd: {
       color: "white",
       fontSize: 14,
-      fontWeight: "bold",
       textAlign: 'center',
-      lineHeight: 30,
-      marginTop: 15,
-      marginBottom: 15,
+      lineHeight: 22,
+      fontWeight: '500',
+      fontFamily: 'TT-Hoves-Regular',
   },
 
 });

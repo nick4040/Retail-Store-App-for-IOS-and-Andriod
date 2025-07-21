@@ -10,6 +10,9 @@ export default function RootLayout() {
       <Stack.Screen name="platinumMenu"/>
       <Stack.Screen name="platinumSignup"/>
       <Stack.Screen name="platinumCard"/>
+      <Stack.Screen name="accountCreated"/>
+      <Stack.Screen name="platinumCardDeal"/>
+      <Stack.Screen name="platinumCardNews"/>
     </Stack>
   );
 }

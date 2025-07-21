@@ -1,9 +1,12 @@
 import { View, Text, StyleSheet, Button, Image, ScrollView, Dimensions } from 'react-native';
 import { Link } from 'expo-router';
+import { useFonts } from 'expo-font';
+
 import Navbar from '../components/navbar';
 import Countdown from '../components/countDown';
 
 import Swiper from 'react-native-swiper';
+import AppLoading from 'expo-app-loading';
 
 
 // Get screen width to make image fit
@@ -29,14 +32,26 @@ const imagesFlyers = [
 
 const HomeFunction = () => {
 
+const [fontsLoaded] = useFonts({
+    'Lobster-Regular': require('@/assets/fonts/Lobster-Regular.ttf'),
+    'TT-Hoves-Regular': require('@/assets/fonts/TT-Hoves-Regular.ttf'),
+  });
+
+  if (!fontsLoaded) {
+      <AppLoading />
+    }
+
   return (
     <ScrollView contentContainerStyle={styles.scrollContainer}>
         <View style={styles.container}>
 
             <View style={styles.topHeader}>
-                <Image source={require('@/assets/images/top_screen_arrow.png')} style={styles.noticeIcon} />
-                <Text style={styles.location} >Northampton, MA</Text>
-                <Image source={require('@/assets/images/home_bell.png')} style={styles.arrowIcon} />
+              <Image source={require('@/assets/images/home_bell.png')} style={styles.noticeIcon} />
+
+              <View style={styles.locationContainer}>
+                <Text style={styles.location}>Northampton, MA</Text>
+                <Image source={require('@/assets/images/top_screen_arrow.png')} style={styles.arrowIcon} />
+              </View>
             </View>
 
             {/* header picture and text */}
@@ -45,27 +60,28 @@ const HomeFunction = () => {
                 source={require('@/assets/images/home_screen_background.png')}
                 style={styles.headerImg}
               />
-              <Text style={styles.headerText}>Your cannabis experience starts here Where every craving is met with an array of delightful options.</Text>
+              <Text style={styles.headerTitle} >Your cannabis experience starts here</Text>
+              <Text style={styles.headerText}>Where every craving is met with an array of delightful options.</Text>
             </View>
 
             {/* main home page menu */}
             <View style={styles.menuContainer}>
               <View style={styles.menuItem}>
-                <Image source={require('@/assets/images/home_shop.png')} style={styles.menuIcon} />
-                <Link href="screens/Home" style={styles.menuLink}>Shop</Link>
+                <Image source={require('@/assets/images/Home/partnersIcon.png')} style={styles.menuIcon} />
+                <Link href="screens/Partners" style={styles.menuLink}>Partners{'\n'}<Text style={styles.menuPlaceHolder} >i</Text></Link>
               </View>
               <View style={styles.menuItem}>
                 <Image source={require('@/assets/images/home_menu.png')} style={styles.menuIcon} />
-                <Link href="screens/Vip" style={styles.menuLink}>Menu</Link>
+                <Link href="screens/Vip" style={styles.menuLink}>Menu{'\n'}<Text style={styles.menuPlaceHolder} >i</Text></Link>
               </View>
               <View style={styles.menuItem}>
                 <Image source={require('@/assets/images/home_goldicon.png')} style={styles.menuIcon} />
-                <Link href="screens/GoldCard" style={styles.menuLink}>Gold {'\n'}
+                <Link href="screens/roleCheck" style={styles.menuLink}>Gold {'\n'}
                 Member</Link>
               </View>
               <View style={styles.menuItem}>
                 <Image source={require('@/assets/images/home_platnium.png')} style={styles.menuIcon} />
-                <Link href="screens/platinumCard/platinumCard" style={styles.menuLink}>Platinum {'\n'}
+                <Link href="screens/roleCheck" style={styles.menuLink}>Platinum {'\n'}
                 Member</Link>
               </View>
             </View>
@@ -96,6 +112,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "white",
+    paddingBottom: 75, // Keeps bottom content above navbar
   },
   scrollContainer: {
     flexGrow: 1,
@@ -111,6 +128,7 @@ const styles = StyleSheet.create({
       fontWeight: 'bold',
       marginBottom: 5,
       marginLeft: 10,
+      fontFamily: 'TT-Hoves-Regular',
     },
     thumbnailImage: {
       width: 150,
@@ -133,25 +151,51 @@ const styles = StyleSheet.create({
     },
     headerText: {
       position: 'absolute',
-      top: '25%',
+      top: '80%',
       color: 'white',
-      fontSize: 18,
+      fontSize: 16,
       fontWeight: 'bold',
       textAlign: 'center',
+      fontFamily: 'TT-Hoves-Regular',
+    },
+    headerTitle: {
+      position: 'absolute',
+      top: '20%',
+      color: 'white',
+      fontSize: 30,
+      fontWeight: 'bold',
+      textAlign: 'center',
+      fontFamily: 'Lobster-Regular',
     },
     topHeader: {
         flexDirection: 'row',
-        justifyContent: 'space-around',
         alignItems: 'center',
-    },
-    location: {
-        marginRight: 0,
-        position: 'relative',
-        right: 80,
-    },
-    noticeIcon: {
-        marginRight: 0,
-    },
+        justifyContent: 'space-between',
+        paddingHorizontal: 20,
+        paddingVertical: 5,
+        width: '100%',
+      },
+      noticeIcon: {
+        width: 24,
+        height: 24,
+        resizeMode: 'contain',
+      },
+      locationContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        gap: 6, // if not supported, use marginLeft in arrowIcon
+      },
+      location: {
+        fontSize: 16,
+        fontWeight: '600',
+        textAlign: 'center',
+        fontFamily: 'TT-Hoves-Regular',
+      },
+      arrowIcon: {
+        width: 25,
+        height: 25,
+        resizeMode: 'contain',
+      },
     menuContainer: {
         flexDirection: 'row',
         justifyContent: 'space-around',
@@ -171,10 +215,14 @@ const styles = StyleSheet.create({
         marginBottom: 4,
       },
       menuLink: {
-        fontSize: 12,
+        fontSize: 14,
         color: '#333',
         textDecorationLine: 'none',
         textAlign: 'center',
+        fontFamily: 'TT-Hoves-Regular',
+      },
+      menuPlaceHolder: {
+        color: '#ffffff',
       },
 });
 export default HomeFunction;

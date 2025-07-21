@@ -1,11 +1,10 @@
 import { View, Text, StyleSheet } from 'react-native';
-import Navbar from '../components/navbar';
+import CheckRole from '../components/roleComponents/checkRole';
 
-export default function goldMenuFunction() {
+export default function HomeFunction() {
   return (
-    <View style={{ flex: 1 }}>
-        <Text>Vip</Text>
-        <Navbar/>
+    <View style={styles.container}>
+    <CheckRole/>
     </View>
   );
 }

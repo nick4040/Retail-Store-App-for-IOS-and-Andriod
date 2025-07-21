@@ -1,6 +1,7 @@
-import React, { FC, useState } from 'react';
-import { Alert, TextInput, Button, View } from 'react-native';
+import React, { FC, ReactElement, useState } from 'react';
+import { Alert, TextInput, Button, View, StyleSheet, TouchableOpacity, Text } from 'react-native';
 import Parse from 'parse/react-native';
+import { Link } from 'expo-router';
 import { useRouter } from 'expo-router';
 
 const PlatinumLogin: FC<{}> = (): React.ReactElement => {
@@ -40,6 +41,7 @@ const PlatinumLogin: FC<{}> = (): React.ReactElement => {
             const response = await user.save();
             console.log('Updated user role to platinum:', response);
             Alert.alert('Success', 'You are now a platinum member!');
+            router.push('screens/platinumCard/accountCreated');
             return true;
           } catch (saveError: any) {
             console.error('Error while updating user role:', saveError);
@@ -63,17 +65,81 @@ const PlatinumLogin: FC<{}> = (): React.ReactElement => {
   };
 
   return (
-    <View style={{ padding: 20 }}>
-      <TextInput
-        placeholder="Enter Platinum Card Number"
-        value={PlatinumCard}
-        onChangeText={setPlatinumCard}
-        style={{ marginBottom: 10, padding: 10, borderWidth: 1, borderRadius: 5 }}
-      />
+        <View style={styles.container}>
+            <Text style={styles.title}>Create Platinum Account</Text>
+            <Link href="screens/goldCard/GoldCard" style={styles.secondTitle}>
+                Already Registered? Click Here.
+            </Link>
 
-      <Button title="Login as Platinum" onPress={doPlatinumLogin} />
-    </View>
+          <TextInput
+            style={styles.input}
+            placeholder="Enter Platinum Card Number"
+            value={PlatinumCard}
+            onChangeText={setPlatinumCard}
+            autoCapitalize="none"
+          />
+
+          <TouchableOpacity onPress={() => doPlatinumLogin()} style={styles.button}>
+            <Text style={styles.buttonText}>Sign Up</Text>
+          </TouchableOpacity>
+
+            <Link href="screens/Home" style={styles.bottomLink}>
+                Click to home
+            </Link>
+        </View>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: "center",
+    padding: 20,
+    backgroundColor: "#ffffff",
+  },
+    title: {
+      fontSize: 28,
+      fontWeight: 'bold',
+      color: '#000000',
+      marginBottom: 25,
+      textAlign: 'center',
+    },
+  secondTitle: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    color: '#00000',
+    marginTop: 10,
+    marginBottom: 10,
+    textAlign: 'center',
+  },
+  bottomLink: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: '#00000',
+    marginTop: 75,
+    marginBottom: 10,
+    textAlign: 'center',
+  },
+  input: {
+    height: 60,
+    marginTop: 5,
+    marginBottom: 5,
+    backgroundColor: "#ffe497",
+    paddingHorizontal: 10,
+    borderRadius: 20,
+  },
+    button: {
+      backgroundColor: '#ffe497',
+      paddingVertical: 12,
+      borderRadius: 20,
+      alignItems: 'center',
+      marginTop: 10,
+    },
+     buttonText: {
+        color: '#ffffff',
+        fontSize: 16,
+        fontWeight: 'bold',
+      },
+});
 
 export default PlatinumLogin;

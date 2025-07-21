@@ -10,16 +10,15 @@ export default function HomeLayout() {
       <Stack.Screen name="platinumCard"/>
       <Stack.Screen name="Home" />
       <Stack.Screen name="Profile" />
-      <Stack.Screen name="GoldCard" />
+      <Stack.Screen name="goldCard" />
       <Stack.Screen name="Vip" />
       <Stack.Screen name="LogoutView"/>
       <Stack.Screen name="Store"/>
       <Stack.Screen name="resetProfile"/>
       <Stack.Screen name="deleteAccountView"/>
-      <Stack.Screen name="createGoldCard"/>
-      <Stack.Screen name="goldDashboard"/>
-      <Stack.Screen name="goldmenu"/>
       <Stack.Screen name="passwordReset"/>
+      <Stack.Screen name="roleCheck"/>
+      <Stack.Screen name="emailForm"/>
     </Stack>
   );
 }

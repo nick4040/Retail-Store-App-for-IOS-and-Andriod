@@ -12,7 +12,10 @@ export const CheckRole: FC<{}> = (): ReactElement => {
         const currentUser = Parse.User.current();
 
         if (!currentUser) {
-          Alert.alert('Error', 'No logged-in user found.');
+          console.error('Error', 'No logged-in user found.');
+          setTimeout(() => {
+              router.replace('/errorSignOut');
+          }, 0);
           return;
         }
 
@@ -22,7 +25,10 @@ export const CheckRole: FC<{}> = (): ReactElement => {
         const userResults = await userQuery.find();
 
         if (userResults.length === 0) {
-          Alert.alert('Error', 'User not found.');
+          console.error('Error', 'User not found.');
+          setTimeout(() => {
+              router.replace('/errorSignOut');
+          }, 0);
           return;
         }
 
@@ -37,7 +43,7 @@ export const CheckRole: FC<{}> = (): ReactElement => {
           router.push('screens/platinumCard/platinumCard');
           return;
         } else if (currentRole === 'gold') {
-          router.push('screens/GoldCard');
+          router.push('screens/goldCard/GoldCard');
           return;
         } else {
           // If no valid role, assign "Vip"
@@ -45,7 +51,7 @@ export const CheckRole: FC<{}> = (): ReactElement => {
           try {
             await user.save();
             Alert.alert('Success', 'You are now a Vip member!');
-            router.push('screens/GoldCard');
+            router.push('screens/Vip');
           } catch (saveError: any) {
             console.error('Error while updating user role:', saveError);
             Alert.alert('Error', 'Failed to update user role.');
@@ -54,6 +60,9 @@ export const CheckRole: FC<{}> = (): ReactElement => {
       } catch (error) {
         console.error('Error checking user role:', error);
         Alert.alert('Error', 'An error occurred while checking the user role.');
+        setTimeout(() => {
+            router.replace('/errorSignOut');
+        }, 0);
       }
     };
 

@@ -6,32 +6,49 @@ import Parse from "parse/react-native";
 
 export const UserRegistration: FC<{}> = (): ReactElement => {
   const [username, setUsername] = useState("");
-  const [fname, setFname] = useState("");
-  const [lname, setLname] = useState("");
+  const [fullName, setFullName] = useState("");
   const [phoneNumber, setPhone] = useState("");
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
   const [age, setAge] = useState("");
 
   const router = useRouter();
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
-  const doUserRegistration = async function (): Promise<boolean> {
-    const usernameValue: string = username;
-    const fnameValue : string = fname;
-    const lnameValue : string = lname;
-    const phoneValue : string = phoneNumber;
-    const passwordValue: string = password;
-    const emailValue: string = email;
-    const ageValue: number = Number(age); // Ensure age is a number
+  const doUserRegistration = async (): Promise<boolean> => {
+    const usernameValue = username.trim();
+    const passwordValue = password;
+    const emailValue = email.trim();
+    const phoneValue = phoneNumber.trim();
+    const ageValue = Number(age);
+    const fullNameValue = fullName.trim();
 
-    console.log("Age:", ageValue);
-
-    // Check if the age is below 21 before proceeding with sign-up
+    // Basic validation
     if (ageValue < 21) {
-      Alert.alert("Error!", "Must be 21 or older to create an account.");
-      console.log("User error: not the right age");
+      setErrorMessage("You must be 21 or older to make an account.");
       return false;
     }
+    if (usernameValue.length <= 2) {
+      setErrorMessage("Your username is too short.");
+      return false;
+    }
+    if (passwordValue.length <= 5) {
+      setErrorMessage("Your password is too short; min length is 6 characters.");
+      return false;
+    }
+    if (!emailValue.includes("@")) {
+      setErrorMessage("Invalid email.");
+      return false;
+    }
+    if (fullNameValue.split(/\s+/).length < 2) {
+      setErrorMessage("Please enter both first and last name.");
+      return false;
+    }
+
+    // Split full name into first and last names
+    const nameParts = fullNameValue.split(/\s+/);
+    const fnameValue = nameParts[0];
+    const lnameValue = nameParts.slice(1).join(" ");
 
     try {
       const createdUser = await Parse.User.signUp(usernameValue, passwordValue, {
@@ -42,65 +59,52 @@ export const UserRegistration: FC<{}> = (): ReactElement => {
         phoneNumber: phoneValue,
       });
 
-      Alert.alert(
-        "Success!",
-        `User ${createdUser.get("username")} was successfully created!`
-      );
-      console.log("User has been created");
-
+      Alert.alert("Success!", `User ${createdUser.get("username")} was successfully created!`);
       router.push("accountCreated");
       return true;
-    } catch (error: any) {
-      Alert.alert("Error!", error.message);
-      console.log("User error, please try again");
+    } catch (error) {
+      setErrorMessage("There was an error creating your account. Please try again.");
       return false;
     }
   };
 
   return (
     <View style={styles.container}>
-        <Text style={styles.title}>Create New Account</Text>
-        <Link href="/" style={styles.secondTitle}>
-            Already Registered? Log in here.
-        </Link>
+      <Text style={styles.title}>Create New Account</Text>
+      <Link href="/" style={styles.secondTitle}>
+        Already Registered? Log in here.
+      </Link>
       <TextInput
         style={styles.input}
         value={username}
         placeholder="Username"
-        onChangeText={(text) => setUsername(text)}
+        onChangeText={setUsername}
         autoCapitalize="none"
       />
-
       <TextInput
         style={styles.input}
         value={password}
         placeholder="Password"
         secureTextEntry
-        onChangeText={(text) => setPassword(text)}
+        onChangeText={setPassword}
       />
       <TextInput
         style={styles.input}
-        value={fname}
-        placeholder="First Name"
-        onChangeText={(text) => setFname(text)}
-      />
-      <TextInput
-        style={styles.input}
-        value={lname}
-        placeholder="Last Name"
-        onChangeText={(text) => setLname(text)}
+        value={fullName}
+        placeholder="Full Name"
+        onChangeText={setFullName}
       />
       <TextInput
         style={styles.input}
         value={phoneNumber}
         placeholder="Phone Number"
-        onChangeText={(text) => setPhone(text)}
+        onChangeText={setPhone}
       />
       <TextInput
         style={styles.input}
         value={email}
         placeholder="Email"
-        onChangeText={(text) => setEmail(text)}
+        onChangeText={setEmail}
         autoCapitalize="none"
       />
       <TextInput
@@ -108,11 +112,13 @@ export const UserRegistration: FC<{}> = (): ReactElement => {
         value={age}
         placeholder="Current Age"
         keyboardType="numeric"
-        onChangeText={(text) => setAge(text)}
+        onChangeText={setAge}
       />
-      <TouchableOpacity onPress={() => doUserRegistration()} style={styles.button}>
+      <TouchableOpacity onPress={doUserRegistration} style={styles.button}>
         <Text style={styles.buttonText}>Sign Up</Text>
       </TouchableOpacity>
+
+      {errorMessage && <Text style={styles.errorText}>{errorMessage}</Text>}
     </View>
   );
 };
@@ -128,15 +134,15 @@ const styles = StyleSheet.create({
       fontSize: 28,
       fontWeight: 'bold',
       color: '#000000',
-      marginBottom: 25,
+      marginBottom: 2,
       textAlign: 'center',
     },
   secondTitle: {
     fontSize: 16,
     fontWeight: 'bold',
     color: '#00000',
-    marginTop: 10,
-    marginBottom: 10,
+    marginTop: 2,
+    marginBottom: 35,
     textAlign: 'center',
   },
   input: {
