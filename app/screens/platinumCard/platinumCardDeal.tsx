@@ -72,7 +72,7 @@ export default PlatinumCardDiscounts;
 const styles = StyleSheet.create({
   root: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#1f1f1f',
   },
   scrollContainer: {
     alignItems: 'center',
@@ -81,7 +81,7 @@ const styles = StyleSheet.create({
   },
   headerCard: {
     width: CARD_WIDTH,
-    backgroundColor: '#FFC6DB',
+    backgroundColor: '#ff66a2',
     borderRadius: 14,
     paddingVertical: 20,
     paddingHorizontal: 16,
@@ -104,7 +104,7 @@ const styles = StyleSheet.create({
   },
   discountCard: {
     width: CARD_WIDTH,
-    backgroundColor: '#FFC6DB',
+    backgroundColor: '#ff66a2',
     borderRadius: 14,
     paddingVertical: 20,
     paddingHorizontal: 16,
@@ -118,7 +118,7 @@ const styles = StyleSheet.create({
   },
   additionalCard: {
     width: CARD_WIDTH,
-    backgroundColor: '#FFC6DB',
+    backgroundColor: '#ff66a2',
     borderRadius: 14,
     paddingVertical: 20,
     paddingHorizontal: 16,

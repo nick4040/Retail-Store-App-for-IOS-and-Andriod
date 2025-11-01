@@ -1,19 +1,57 @@
-import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
-import { useRouter } from 'expo-router';
+import React, { useContext, useState } from "react";
+import { View, Text, StyleSheet, TouchableOpacity, ActivityIndicator } from "react-native";
+import { useRouter } from "expo-router";
+import Parse from "parse/react-native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { UserContext, UserProfile } from "../../components/UserContext";
 
-export default function accountCreated() {
+export default function AccountCreated() {
   const router = useRouter();
+  const { setUser } = useContext(UserContext); // updates global user
+  const [loading, setLoading] = useState(false);
+
+  const handleGoHome = async () => {
+    setLoading(true);
+    try {
+      const currentUser = Parse.User.current();
+      if (!currentUser) {
+        console.warn("No logged-in user found.");
+        return;
+      }
+
+      // Fetch latest data
+      await currentUser.fetch();
+
+      // Build user profile
+      const userProfile: UserProfile = {
+        id: currentUser.id,
+        username: currentUser.get("username"),
+        email: currentUser.get("email"),
+        fname: currentUser.get("fname"),
+        lname: currentUser.get("lname"),
+        phoneNumber: currentUser.get("phoneNumber"),
+        age: currentUser.get("age"),
+        role: currentUser.get("role"),
+      };
+
+      // Update global state + AsyncStorage
+      setUser(userProfile);
+      await AsyncStorage.setItem("userProfile", JSON.stringify(userProfile));
+
+      console.log("Global user cache updated:", userProfile);
+    } catch (err) {
+      console.error("Error updating global user cache:", err);
+    } finally {
+      setLoading(false);
+      router.push("screens/Home");
+    }
+  };
 
   return (
     <View style={styles.container}>
       <Text style={styles.message}>Your Platinum account has been created.</Text>
-      <TouchableOpacity
-        style={styles.button}
-        onPress={() => router.push('screens/Home')}
-      >
-        <Text style={styles.buttonText}>Go to Home Page</Text>
+      <TouchableOpacity style={styles.button} onPress={handleGoHome} disabled={loading}>
+        {loading ? <ActivityIndicator color="#000" /> : <Text style={styles.buttonText}>Go to Home Page</Text>}
       </TouchableOpacity>
     </View>
   );
@@ -22,24 +60,27 @@ export default function accountCreated() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#f5f5f5',
+    justifyContent: "center",
+    alignItems: "center",
+    padding: 20,
+    backgroundColor: "#1f1f1f",
   },
   message: {
-    fontSize: 18,
-    marginBottom: 20,
-    color: '#333',
+    fontSize: 20,
+    fontWeight: "bold",
+    marginBottom: 40,
+    textAlign: "center",
+    color: "white",
   },
   button: {
-    backgroundColor: '#007BFF',
-    paddingVertical: 10,
-    paddingHorizontal: 20,
-    borderRadius: 5,
+    backgroundColor: "#ff66a2",
+    paddingVertical: 12,
+    paddingHorizontal: 25,
+    borderRadius: 20,
   },
   buttonText: {
-    color: '#fff',
     fontSize: 16,
-    fontWeight: 'bold',
+    fontWeight: "bold",
+    color: "white",
   },
 });

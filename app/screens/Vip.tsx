@@ -2,6 +2,7 @@ import { View, Text, StyleSheet, Image, Dimensions, ScrollView } from 'react-nat
 import { Link } from 'expo-router';
 import Navbar from '../components/navbar';
 import { useFonts } from 'expo-font';
+import GetName from '../components/roleComponents/getName';
 
 import AppLoading from 'expo-app-loading';
 
@@ -26,7 +27,7 @@ export default function HomeFunction() {
         <View style={styles.topHeader}>
           <View style={styles.textContainer}>
             <Text style={styles.topTextDefault}>Welcome back</Text>
-            <Text style={styles.topTextName}>Alfredo Torres</Text>
+            <GetName/>
             <View style={styles.memberContainer}>
               <Image
                 source={require('@/assets/images/header_crown_icon.png')}
@@ -76,19 +77,19 @@ export default function HomeFunction() {
         {/* Bottom Buttons */}
         <View style={styles.bottomContainer}>
           <View style={styles.bottomButton}>
-            <Link href="screens/Home" style={styles.bottomLink}>VIP MENU</Link>
+            <Link href="screens/menus/Vip_Menu" style={styles.bottomLink}>VIP MENU</Link>
           </View>
           <View style={styles.bottomButton}>
-            <Link href="screens/Home" style={styles.bottomLink}>HUSH MENU</Link>
+            <Link href="screens/menus/Hush_Menu" style={styles.bottomLink}>HUSH MENU</Link>
           </View>
           <View style={styles.bottomButton}>
-            <Link href="screens/Home" style={styles.bottomLink}>STORMI MENU</Link>
+            <Link href="screens/menus/Stomi_Menu" style={styles.bottomLink}>STORMI MENU</Link>
           </View>
           <View style={styles.bottomButton}>
-            <Link href="screens/Home" style={styles.bottomLink}>MONTHLY MENU</Link>
+            <Link href="screens/menus/Monthly_Menu" style={styles.bottomLink}>MONTHLY MENU</Link>
           </View>
           <View style={styles.bottomButton}>
-            <Link href="screens/Home" style={styles.bottomLink}>FLASH MENU</Link>
+            <Link href="screens/menus/Flash_menu" style={styles.bottomLink}>FLASH MENU</Link>
           </View>
         </View>
 
@@ -104,7 +105,7 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    backgroundColor: '#ffffff',
+    backgroundColor: '#1f1f1f',
   },
   topHeader: {
     flexDirection: 'row',
@@ -117,12 +118,12 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   topTextDefault: {
-    color: 'black',
+    color: '#ff66a2',
     fontSize: 14,
     fontWeight: '500',
   },
   topTextName: {
-    color: '#ffbfd8',
+    color: '#ff66a2',
     fontSize: 20,
     fontWeight: 'bold',
   },
@@ -150,7 +151,7 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     width: screenWidth * 0.9,
     minHeight: screenWidth * 0.55,
-    backgroundColor: "#ffbfd8",
+    backgroundColor: "#ff66a2",
     padding: 20,
   },
   topText: {
@@ -193,7 +194,7 @@ const styles = StyleSheet.create({
   },
   menuLink: {
     fontSize: 14,
-    color: '#333',
+    color: '#ff66a2',
     textAlign: 'center',
     textDecorationLine: 'none',
     fontFamily: 'TT-Hoves-Regular',
@@ -207,7 +208,7 @@ const styles = StyleSheet.create({
     marginVertical: 10,
     width: screenWidth * 0.8,
     height: 55,
-    backgroundColor: "#ffbfd8",
+    backgroundColor: "#ff66a2",
     justifyContent: 'center',
   },
   bottomLink: {

@@ -1,67 +1,68 @@
-import React, { FC, ReactElement, useEffect } from 'react';
-import { Alert } from 'react-native';
-import { useRouter } from 'expo-router';
-import Parse from 'parse/react-native';
+import React, { FC, ReactElement, useEffect, useContext } from "react";
+import { Alert } from "react-native";
+import { useRouter } from "expo-router";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { UserContext } from "../UserContext";
 
 export const CheckRole: FC<{}> = (): ReactElement => {
   const router = useRouter();
+  const { user, setUser } = useContext(UserContext);
 
   useEffect(() => {
     const doCheckRole = async (): Promise<void> => {
       try {
-        const currentUser = Parse.User.current();
+        // Try cache first
+        let cachedUser = user;
 
-        if (!currentUser) {
-          console.error('Error', 'No logged-in user found.');
-          setTimeout(() => {
-              router.replace('/errorSignOut');
-          }, 0);
-          return;
-        }
-
-        const currentUsername = currentUser.getUsername();
-        const userQuery = new Parse.Query(Parse.User);
-        userQuery.equalTo('username', currentUsername);
-        const userResults = await userQuery.find();
-
-        if (userResults.length === 0) {
-          console.error('Error', 'User not found.');
-          setTimeout(() => {
-              router.replace('/errorSignOut');
-          }, 0);
-          return;
-        }
-
-        const user = userResults[0];
-        const currentRole = user.get('role');
-
-        // Navigate based on existing role
-        if (currentRole === 'Vip') {
-          router.push('screens/Vip');
-          return;
-        } else if (currentRole === 'platinum') {
-          router.push('screens/platinumCard/platinumCard');
-          return;
-        } else if (currentRole === 'gold') {
-          router.push('screens/goldCard/GoldCard');
-          return;
-        } else {
-          // If no valid role, assign "Vip"
-          user.set('role', 'Vip');
-          try {
-            await user.save();
-            Alert.alert('Success', 'You are now a Vip member!');
-            router.push('screens/Vip');
-          } catch (saveError: any) {
-            console.error('Error while updating user role:', saveError);
-            Alert.alert('Error', 'Failed to update user role.');
+        if (!cachedUser) {
+          const stored = await AsyncStorage.getItem("userProfile");
+          if (stored) {
+            cachedUser = JSON.parse(stored);
+            setUser(cachedUser);
           }
         }
+
+        if (!cachedUser) {
+          console.error("Error", "No logged-in user found in cache.");
+          setTimeout(() => {
+            router.replace("/errorSignOut");
+          }, 0);
+          return;
+        }
+
+        let currentRole = cachedUser.role;
+
+        // If no role, assign "Vip" locally
+        if (!currentRole) {
+          currentRole = "vip";
+          const updatedUser = { ...cachedUser, role: currentRole };
+
+          setUser(updatedUser);
+          await AsyncStorage.setItem("userProfile", JSON.stringify(updatedUser));
+
+          Alert.alert("Success", "You are now a Vip member!");
+        }
+
+        // Navigate based on cached role
+        if (currentRole === "vip") {
+          router.push("screens/Vip");
+        } else if (currentRole === "platinum") {
+          router.push("screens/platinumCard/platinumCard");
+        } else if (currentRole === "gold") {
+          router.push("screens/goldCard/GoldCard");
+        } else if (currentRole === "renew") {
+            router.push("screens/Vip");
+        } else {
+          console.error("Error", "Invalid role found.");
+          setTimeout(() => {
+            router.replace("/errorSignOut");
+          }, 0);
+        }
       } catch (error) {
-        console.error('Error checking user role:', error);
-        Alert.alert('Error', 'An error occurred while checking the user role.');
+        console.error("Error checking user role:", error);
+        Alert.alert("Error", "An error occurred while checking the user role.");
         setTimeout(() => {
-            router.replace('/errorSignOut');
+          router.replace("/errorSignOut");
         }, 0);
       }
     };
@@ -73,3 +74,4 @@ export const CheckRole: FC<{}> = (): ReactElement => {
 };
 
 export default CheckRole;
+

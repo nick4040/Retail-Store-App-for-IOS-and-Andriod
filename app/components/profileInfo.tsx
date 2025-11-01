@@ -1,12 +1,14 @@
-import React, { FC, ReactElement, useEffect, useState } from 'react';
-import { Text, View, StyleSheet, TouchableOpacity, ScrollView, Button, Image, Dimensions, Switch } from 'react-native';
+import React, { FC, ReactElement, useEffect, useState, useContext } from 'react';
+import { Text, View, StyleSheet, TouchableOpacity, ScrollView, Image, Switch } from 'react-native';
 import { useRouter } from 'expo-router';
 import Parse from 'parse/react-native';
-import Navbar from "./navbar"
-import { handleParseError } from "./errorHandling/parseError"
+import Navbar from "./navbar";
+import { handleParseError } from "./errorHandling/parseError";
+import { UserContext } from "./UserContext";
 
 export const ProfilePage: FC<{}> = (): ReactElement => {
   const router = useRouter();
+  const { user } = useContext(UserContext); // ✅ Get QR code & profile from cache
   const [userData, setUserData] = useState({
     username: '',
     email: '',
@@ -18,7 +20,7 @@ export const ProfilePage: FC<{}> = (): ReactElement => {
 
   useEffect(() => {
     async function getCurrentUser() {
-    try {
+      try {
         const currentUser = await Parse.User.currentAsync();
         if (currentUser !== null) {
           setUserData({
@@ -31,15 +33,26 @@ export const ProfilePage: FC<{}> = (): ReactElement => {
           });
         }
       } catch (error) {
-        handleParseError(error); // Redirect if Parse isn't initialized
+        handleParseError(error);
       }
     }
-
     getCurrentUser();
   }, []);
 
-return (
+  return (
     <ScrollView style={styles.scrollContainer}>
+
+      {/* ✅ QR Code Section */}
+      {user?.qrCode && (
+        <View style={styles.qrContainer}>
+          <Text style={styles.qrTitle}>Your VIP QR Code</Text>
+          <Image
+            source={{ uri: user.qrCode }}
+            style={styles.qrImage}
+          />
+        </View>
+      )}
+
       <View style={styles.profileCard}>
         {/* About Me */}
         <Text style={styles.sectionTitle}>About Me</Text>
@@ -170,16 +183,28 @@ return (
           </TouchableOpacity>
         </View>
 
-        {/* Terms of service */}
+        {/* Terms of Service */}
         <View style={styles.itemRow}>
           <View style={styles.iconBox}>
             <Image source={require('@/assets/images/profile/icon_security.png')} style={styles.iconImage} />
           </View>
           <View style={styles.textBox}>
             <Text style={styles.mainText}>Terms of service</Text>
-            <Text style={styles.subText}>Terms of service and Privacy Policy</Text>
           </View>
-          <TouchableOpacity onPress={() => router.push("screens/passwordReset")}>
+          <TouchableOpacity onPress={() => router.push("screens/termsOfServiceScreen")}>
+            <Image source={require('@/assets/images/profile/icon_arrow.png')} style={styles.arrowImage} />
+          </TouchableOpacity>
+        </View>
+
+        {/* Privacy Policy */}
+        <View style={styles.itemRow}>
+          <View style={styles.iconBox}>
+            <Image source={require('@/assets/images/profile/icon_security.png')} style={styles.iconImage} />
+          </View>
+          <View style={styles.textBox}>
+            <Text style={styles.mainText}>Privacy Policy</Text>
+          </View>
+          <TouchableOpacity onPress={() => router.push("screens/privacyPolicyScreen")}>
             <Image source={require('@/assets/images/profile/icon_arrow.png')} style={styles.arrowImage} />
           </TouchableOpacity>
         </View>
@@ -199,14 +224,32 @@ return (
 const styles = StyleSheet.create({
   scrollContainer: {
     flex: 1,
-    backgroundColor: '#FFF5E5',
+    backgroundColor: '#1f1f1f',
     paddingBottom: 75,
+  },
+  qrContainer: {
+    alignItems: "center",
+    marginTop: 20,
+    marginBottom: 10,
+  },
+  qrTitle: {
+    fontSize: 18,
+    color: "#FF1493",
+    fontWeight: "bold",
+    marginBottom: 10,
+  },
+  qrImage: {
+    width: 250,
+    height: 250,
+    borderRadius: 10,
+    borderWidth: 2,
+    borderColor: "#FF1493",
   },
   profileCard: {
     margin: 20,
     padding: 20,
     borderRadius: 20,
-    backgroundColor: '#fff',
+    backgroundColor: '#1f1f1f',
     shadowColor: '#000',
     shadowOpacity: 0.1,
     shadowOffset: { width: 0, height: 3 },
@@ -242,11 +285,11 @@ const styles = StyleSheet.create({
   },
   mainText: {
     fontSize: 16,
-    color: '#222',
+    color: '#fff',
   },
   subText: {
     fontSize: 12,
-    color: '#777',
+    color: '#fff',
   },
   arrowImage: {
     width: 18,
@@ -269,7 +312,4 @@ const styles = StyleSheet.create({
   },
 });
 
-
-
-
-
+export default ProfilePage;

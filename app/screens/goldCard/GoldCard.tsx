@@ -15,6 +15,7 @@ import AppLoading from 'expo-app-loading';
 // Components
 import Navbar from '../../components/navbar';
 import CheckRole from '../../components/roleComponents/checkRole';
+import GetName from '../../components/roleComponents/getName';
 
 // Get screen width for responsive design
 const { width: screenWidth } = Dimensions.get('window');
@@ -40,7 +41,7 @@ const GoldCard = () => {
       <View style={styles.topHeader}>
         <View style={styles.textContainer}>
           <Text style={styles.topTextDefault}>Welcome back</Text>
-          <Text style={styles.topTextName}>Alfredo Torres</Text>
+          <GetName/>
           <View style={styles.memberContainer}>
             <Image
               source={require('@/assets/images/header_crown_icon.png')}
@@ -82,7 +83,7 @@ const GoldCard = () => {
         </View>
         <View style={styles.menuItem}>
           <Image
-            source={require('@/assets/images/GoldCard/menu.png')}
+            source={require('@/assets/images/GoldCard/events.png')}
             style={styles.menuIcon}
           />
           <Link href="screens/Vip" style={styles.menuLink}>
@@ -108,7 +109,7 @@ const GoldCard = () => {
 
       {/* VIP Program Section */}
       <View style={styles.middleSection}>
-        <Text style={styles.textTitle}>Vip Program</Text>
+        <Text style={styles.textTitle}>Gold Program</Text>
         <Text style={styles.textEnd}>
           • Free Claw Machine Play — 2nd Monday each month{'\n\n'}
           • Free Spin Wheel — 1st Monday each month{'\n\n'}
@@ -133,7 +134,7 @@ const styles = StyleSheet.create({
   scrollContainer: {
     flexGrow: 1,
     justifyContent: 'space-between',
-    backgroundColor: 'white',
+    backgroundColor: '#1f1f1f',
     paddingBottom: 100, // Keeps bottom content above navbar
   },
   topHeader: {
@@ -147,12 +148,12 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
   },
   topTextDefault: {
-    color: 'black',
+    color: 'white',
     fontSize: 14,
     fontWeight: '500',
   },
   topTextName: {
-    color: '#ffbfd8',
+    color: 'white',
     fontSize: 20,
     fontWeight: 'bold',
   },
@@ -204,13 +205,13 @@ const styles = StyleSheet.create({
   },
   menuLink: {
     fontSize: 12,
-    color: '#333',
+    color: 'white',
     textAlign: 'center',
     textDecorationLine: 'none',
     fontFamily: 'TT-Hoves-Regular',
   },
   middleSection: {
-    backgroundColor: '#ffbfd8',
+    backgroundColor: '#ff66a2',
     borderRadius: 10,
     paddingVertical: 16,
     paddingHorizontal: 12,

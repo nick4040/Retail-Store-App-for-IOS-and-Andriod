@@ -9,6 +9,7 @@ import AppLoading from 'expo-app-loading';
 //components
 import Navbar from '../../components/navbar';
 import CheckRole from '../../components/roleComponents/checkRole';
+import GetName from '../../components/roleComponents/getName';
 
 // Get screen width to make image fit
 const { width } = Dimensions.get('window');
@@ -33,10 +34,10 @@ const platinumCard = () => {
         <View style={styles.topHeader}>
           <View style={styles.textContainer}>
             <Text style={styles.topTextDefault}>Welcome back</Text>
-            <Text style={styles.topTextName}>Alfredo Torres</Text>
+            <GetName/>
             <View style={styles.memberContainer}>
               <Image
-                source={require('@/assets/images/header_crown_icon.png')} // 🔁 Replace with your crown image path
+                source={require('@/assets/images/header_crown_icon.png')}
                 style={styles.crownIcon}
               />
               <Text style={styles.topTextDefault}> PLATINUM MEMBER</Text>
@@ -65,7 +66,7 @@ const platinumCard = () => {
                 <Image source={require('@/assets/images/GoldCard/spade_holder.png')} style={styles.menuIconSpacer} />
               </View>
               <View style={styles.menuItem}>
-                <Image source={require('@/assets/images/GoldCard/menu.png')} style={styles.menuIcon} />
+                <Image source={require('@/assets/images/GoldCard/events.png')} style={styles.menuIcon} />
                 <Link href="screens/Vip" style={styles.menuLink}>Coming Soon!</Link>
               </View>
               <View style={styles.menuItem}>
@@ -78,7 +79,7 @@ const platinumCard = () => {
             </View>
 
         <View style={styles.middleSection}>
-            <Text style={styles.textTitle}>Vip Program</Text>
+            <Text style={styles.textTitle}>Platinum Program</Text>
             <Text style={styles.textEnd}>
               • Free Claw Machine Play — 2nd Monday each month{'\n\n'}
               • Free Spin Wheel — 1st Monday each month{'\n\n'}
@@ -88,7 +89,6 @@ const platinumCard = () => {
               • Private Event Access (Greenfield){'\n\n'}
               • Monthly raffle prize drawing{'\n\n'}
               • Lottery raffle for a 7 day vacation package{'\n\n'}
-
             </Text>
         </View>
         <Navbar/>
@@ -99,7 +99,7 @@ const platinumCard = () => {
 const styles = StyleSheet.create({
   scrollContainer: {
     flexGrow: 1,
-    backgroundColor: "white",
+    backgroundColor: "#1f1f1f",
     paddingBottom: 100, // Keeps bottom content above navbar
   },
     topHeader: {
@@ -114,7 +114,7 @@ const styles = StyleSheet.create({
       flexDirection: 'column',
     },
     topTextDefault: {
-      color: 'black',
+      color: 'white',
       fontSize: 14,
       fontWeight: '500',
     },
@@ -129,8 +129,8 @@ const styles = StyleSheet.create({
       marginTop: 4,
     },
     crownIcon: {
-      width: 16,
-      height: 16,
+      width: 21,
+      height: 17,
       marginRight: 4,
     },
     profileImage: {
@@ -143,7 +143,7 @@ const styles = StyleSheet.create({
         justifyContent: 'space-evenly',
         alignItems: 'center',
         paddingVertical: 10,
-        backgroundColor: '#fff',
+        backgroundColor: '#1f1f1f',
         marginBottom: 30,
         marginTop: 25,
       },
@@ -162,7 +162,7 @@ const styles = StyleSheet.create({
       },
       menuLink: {
         fontSize: 12,
-        color: '#333',
+        color: '#ff66a2',
         textDecorationLine: 'none',
         fontFamily: 'TT-Hoves-Regular',
       },
@@ -188,7 +188,7 @@ const styles = StyleSheet.create({
         marginRight: 0,
     },
     middleSection: {
-    backgroundColor: '#ffbfd8',
+    backgroundColor: '#ff66a2',
     borderRadius: 10,
     paddingVertical: 16,
     paddingHorizontal: 12,

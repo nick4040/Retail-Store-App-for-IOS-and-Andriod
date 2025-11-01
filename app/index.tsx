@@ -1,41 +1,33 @@
-import { View, Text, StyleSheet, Button, SafeAreaView, ImageBackground } from 'react-native';
-import { Link } from 'expo-router';
+import { View, StyleSheet } from 'react-native';
 import { UserLogIn } from "./components/login";
-import { config } from './constants/Keys';
-import Parse from 'parse/react-native';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import { LinearGradient } from 'expo-linear-gradient';
 
 const logIn = () => {
-
-    // Set AsyncStorage for Parse
-    Parse.setAsyncStorage(AsyncStorage);
-
-    // Initialize Parse
-    Parse.initialize(config.applicationId, config.javascriptKey);
-    Parse.serverURL = config.serverURL;
-
-    //add a sign up button somewhere on here
-
   return (
-    <ImageBackground
-      source={require('@/assets/images/login_Background.jpg')} // Replace with your image path
+    <LinearGradient
+      colors={['#ff66c4', '#ffde59']} // Pink to Yellow
+      start={{ x: 0, y: 0 }}
+      end={{ x: 1, y: 1 }}
       style={styles.container}
-      resizeMode="cover"
     >
-      <View>
-          <UserLogIn />
+      <View style={styles.innerContainer}>
+        <UserLogIn />
       </View>
-    </ImageBackground>
+    </LinearGradient>
   );
-}
+};
+
 const styles = StyleSheet.create({
-  defaultBackground: {
-      backgroundColor: '#FFFFFF',
-  },
   container: {
     flex: 1,
+    width: "100%",
+    height: "100%",
     justifyContent: 'center',
-  }
+    alignItems: 'center',
+  },
+  innerContainer: {
+    width: '100%',
+  },
 });
 
 export default logIn;

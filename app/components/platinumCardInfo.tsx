@@ -1,12 +1,12 @@
 import React, { FC, ReactElement, useState } from 'react';
-import { Alert, TextInput, Button, View, StyleSheet, TouchableOpacity, Text } from 'react-native';
+import { Alert, TextInput, View, StyleSheet, TouchableOpacity, Text } from 'react-native';
 import Parse from 'parse/react-native';
-import { Link } from 'expo-router';
-import { useRouter } from 'expo-router';
+import { Link, useRouter } from 'expo-router';
 
-const PlatinumLogin: FC<{}> = (): React.ReactElement => {
+const PlatinumLogin: FC<{}> = (): ReactElement => {
   const router = useRouter();
   const [PlatinumCard, setPlatinumCard] = useState('');
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   const doPlatinumLogin = async (): Promise<boolean> => {
     try {
@@ -25,7 +25,7 @@ const PlatinumLogin: FC<{}> = (): React.ReactElement => {
         const currentUsername = currentUser?.getUsername();
 
         if (!currentUsername) {
-          Alert.alert('Error', 'No logged-in user found.');
+          setErrorMessage('No logged-in user found.');
           return false;
         }
 
@@ -45,69 +45,74 @@ const PlatinumLogin: FC<{}> = (): React.ReactElement => {
             return true;
           } catch (saveError: any) {
             console.error('Error while updating user role:', saveError);
-            Alert.alert('Error', 'Failed to update user role.');
+            setErrorMessage('Failed to update user role.');
             return false;
           }
         } else {
           console.error('User not found for username:', currentUsername);
-          Alert.alert('Error', 'User not found.');
+          setErrorMessage('User not found.');
           return false;
         }
       } else {
-        Alert.alert('Failed!', 'Invalid card number, please try again!');
+        setErrorMessage('Invalid card number, please try again!');
         return false;
       }
     } catch (error: any) {
       console.error('Error while fetching PlatinumCard data:', error);
-      Alert.alert('Error', 'An unexpected error occurred.');
+      setErrorMessage('An unexpected error occurred.');
       return false;
     }
   };
 
   return (
-        <View style={styles.container}>
-            <Text style={styles.title}>Create Platinum Account</Text>
-            <Link href="screens/goldCard/GoldCard" style={styles.secondTitle}>
-                Already Registered? Click Here.
-            </Link>
+    <View style={styles.container}>
+      <Text style={styles.title}>Create Platinum Account</Text>
 
-          <TextInput
-            style={styles.input}
-            placeholder="Enter Platinum Card Number"
-            value={PlatinumCard}
-            onChangeText={setPlatinumCard}
-            autoCapitalize="none"
-          />
+      <Link href="screens/goldCard/GoldCard" style={styles.secondTitle}>
+        Already Registered? Click Here.
+      </Link>
 
-          <TouchableOpacity onPress={() => doPlatinumLogin()} style={styles.button}>
-            <Text style={styles.buttonText}>Sign Up</Text>
-          </TouchableOpacity>
+      <TextInput
+        style={styles.input}
+        placeholder="Enter Platinum Card Number"
+        value={PlatinumCard}
+        onChangeText={setPlatinumCard}
+        autoCapitalize="none"
+      />
 
-            <Link href="screens/Home" style={styles.bottomLink}>
-                Click to home
-            </Link>
-        </View>
+      <TouchableOpacity onPress={() => doPlatinumLogin()} style={styles.button}>
+        <Text style={styles.buttonText}>Sign Up</Text>
+      </TouchableOpacity>
+
+      {errorMessage && (
+        <Text style={styles.errorText}>{errorMessage}</Text>
+      )}
+
+      <Link href="screens/Home" style={styles.bottomLink}>
+        Click to home
+      </Link>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "center",
+    justifyContent: 'center',
     padding: 20,
-    backgroundColor: "#ffffff",
+    backgroundColor: '#1f1f1f',
   },
-    title: {
-      fontSize: 28,
-      fontWeight: 'bold',
-      color: '#000000',
-      marginBottom: 25,
-      textAlign: 'center',
-    },
+  title: {
+    fontSize: 28,
+    fontWeight: 'bold',
+    color: 'white',
+    marginBottom: 25,
+    textAlign: 'center',
+  },
   secondTitle: {
     fontSize: 16,
     fontWeight: 'bold',
-    color: '#00000',
+    color: 'white',
     marginTop: 10,
     marginBottom: 10,
     textAlign: 'center',
@@ -115,7 +120,7 @@ const styles = StyleSheet.create({
   bottomLink: {
     fontSize: 20,
     fontWeight: 'bold',
-    color: '#00000',
+    color: 'white',
     marginTop: 75,
     marginBottom: 10,
     textAlign: 'center',
@@ -124,22 +129,29 @@ const styles = StyleSheet.create({
     height: 60,
     marginTop: 5,
     marginBottom: 5,
-    backgroundColor: "#ffe497",
+    backgroundColor: '#ff66a2',
     paddingHorizontal: 10,
     borderRadius: 20,
+    color: "white",
   },
-    button: {
-      backgroundColor: '#ffe497',
-      paddingVertical: 12,
-      borderRadius: 20,
-      alignItems: 'center',
-      marginTop: 10,
-    },
-     buttonText: {
-        color: '#ffffff',
-        fontSize: 16,
-        fontWeight: 'bold',
-      },
+  button: {
+    backgroundColor: '#ff66a2',
+    paddingVertical: 12,
+    borderRadius: 20,
+    alignItems: 'center',
+    marginTop: 10,
+  },
+  buttonText: {
+    color: '#ffffff',
+    fontSize: 16,
+    fontWeight: 'bold',
+  },
+  errorText: {
+    color: 'red',
+    marginTop: 10,
+    textAlign: 'center',
+    fontWeight: 'bold',
+  },
 });
 
 export default PlatinumLogin;

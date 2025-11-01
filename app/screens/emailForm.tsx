@@ -30,7 +30,7 @@ export default NeedHelpScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#ffffff',
+    backgroundColor: '#1f1f1f',
     alignItems: 'center',
     justifyContent: 'center',
     paddingHorizontal: 30,
@@ -38,20 +38,20 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 28,
     fontWeight: 'bold',
-    color: '#000',
+    color: '#ffffff',
     marginBottom: 20,
     textAlign: 'center',
   },
   subtitle: {
     fontSize: 14,
-    color: '#333',
+    color: '#ffffff',
     textAlign: 'center',
     marginBottom: 40,
     lineHeight: 20,
   },
   button: {
     width: 250,
-    backgroundColor: '#fde68a',
+    backgroundColor: '#ff66a2',
     paddingVertical: 14,
     borderRadius: 12,
     alignItems: 'center',

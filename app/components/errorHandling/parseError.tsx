@@ -11,3 +11,6 @@ export const handleParseError = (error: any) => {
     throw error; // re-throw if it's not that specific error
   }
 };
+
+export default handleParseError;
+

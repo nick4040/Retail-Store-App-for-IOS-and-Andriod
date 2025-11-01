@@ -64,7 +64,7 @@ export default platinumCardNews;
 const styles = StyleSheet.create({
   root: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#1f1f1f',
   },
   scrollContainer: {
     alignItems: 'center',
@@ -73,7 +73,7 @@ const styles = StyleSheet.create({
   },
   headerCard: {
     width: CARD_WIDTH,
-    backgroundColor: '#FFC6DB',
+    backgroundColor: '#ff66a2',
     borderRadius: 14,
     paddingVertical: 20,
     paddingHorizontal: 16,
@@ -96,7 +96,7 @@ const styles = StyleSheet.create({
   },
   newsCard: {
     width: CARD_WIDTH,
-    backgroundColor: '#FFC6DB',
+    backgroundColor: '#ff66a2',
     borderRadius: 14,
     paddingVertical: 16,
     paddingHorizontal: 12,

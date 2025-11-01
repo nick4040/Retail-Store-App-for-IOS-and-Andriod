@@ -24,12 +24,12 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#f5f5f5',
+    backgroundColor: '#1f1f1f',
   },
   message: {
     fontSize: 18,
     marginBottom: 20,
-    color: '#333',
+    color: '#ffffff',
   },
   button: {
     backgroundColor: '#007BFF',

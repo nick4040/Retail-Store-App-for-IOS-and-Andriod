@@ -2,31 +2,31 @@ import { View, Text, StyleSheet, Image, Dimensions, ScrollView, TouchableOpacity
 import Navbar from '../components/navbar';
 import { useFonts } from 'expo-font';
 import AppLoading from 'expo-app-loading';
+import CheckPartnerRole from '../components/roleComponents/checkPartnerRole';
+import { useRouter } from 'expo-router';
 
 const screenWidth = Dimensions.get('window').width;
 
 const partners = [
-  { name: 'Turning Leaf', image: require('@/assets/images/partners/turningLeafLogo.png') },
-  { name: 'Green Roots', image: require('@/assets/images/partners/turningLeafLogo.png') },
-  { name: 'Bloom Collective', image: require('@/assets/images/partners/turningLeafLogo.png') },
-  { name: 'Elevated', image: require('@/assets/images/partners/turningLeafLogo.png') },
-  { name: 'Trippy Treats', image: require('@/assets/images/partners/turningLeafLogo.png') },
-  { name: 'Leafy Lane', image: require('@/assets/images/partners/turningLeafLogo.png') },
-  { name: 'Herbal Essence', image: require('@/assets/images/partners/turningLeafLogo.png') },
-  { name: 'Pink Haze', image: require('@/assets/images/partners/turningLeafLogo.png') },
-  { name: 'Sativa Sisters', image: require('@/assets/images/partners/turningLeafLogo.png') },
+  { name: 'Turning Leaf', image: require('@/assets/images/partners/turningLeafLogo.png'), route: '/screens/appPartners/turningLeafPage' },
+  { name: 'Renew Cannabis Co.', image: require('@/assets/images/partners/renewPartner.png'), route: '/screens/appPartners/renewPage' },
 ];
 
 export default function PartnersPage() {
+  const router = useRouter();
 
-       const [fontsLoaded] = useFonts({
-          'Lobster-Regular': require('@/assets/fonts/Lobster-Regular.ttf'),
-          'TT-Hoves-Regular': require('@/assets/fonts/TT-Hoves-Regular.ttf'),
-        });
+  const [fontsLoaded] = useFonts({
+    'Lobster-Regular': require('@/assets/fonts/Lobster-Regular.ttf'),
+    'TT-Hoves-Regular': require('@/assets/fonts/TT-Hoves-Regular.ttf'),
+  });
 
-        if (!fontsLoaded) {
-            <AppLoading />
-          }
+  if (!fontsLoaded) {
+    return <AppLoading />;
+  }
+
+  const handlePress = (route: string) => {
+    router.push(route);
+  };
 
   return (
     <View style={styles.container}>
@@ -38,14 +38,18 @@ export default function PartnersPage() {
 
         <View style={styles.grid}>
           {partners.map((partner, index) => (
-            <TouchableOpacity key={index} style={styles.partnerTile}>
+            <TouchableOpacity
+              key={index}
+              style={styles.partnerTile}
+              onPress={() => handlePress(partner.route)}
+            >
               <Image source={partner.image} style={styles.partnerImage} resizeMode="contain" />
               <Text style={styles.partnerName}>{partner.name}</Text>
             </TouchableOpacity>
           ))}
         </View>
+        <CheckPartnerRole />
       </ScrollView>
-
       <View style={styles.navbarContainer}>
         <Navbar />
       </View>
@@ -56,10 +60,10 @@ export default function PartnersPage() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: 'black',
   },
   scrollContainer: {
-    paddingBottom: 100, // Leave room for navbar
+    paddingBottom: 100,
   },
   header: {
     marginTop: 40,
@@ -70,12 +74,12 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 26,
     fontWeight: 'bold',
-    color: '#ff80ab',
+    color: 'white',
     fontFamily: 'Lobster-Regular',
   },
   subtitle: {
     fontSize: 14,
-    color: '#888',
+    color: 'white',
     textAlign: 'center',
     marginTop: 5,
     fontFamily: 'TT-Hoves-Regular',
@@ -87,24 +91,23 @@ const styles = StyleSheet.create({
     paddingHorizontal: 5,
   },
   partnerTile: {
-    width: screenWidth * 0.28,
-    height: screenWidth * 0.28 + 25,
-    backgroundColor: '#ffbfd8',
+    width: screenWidth * 0.35,
+    height: screenWidth * 0.55,
+    backgroundColor: '#ff66a2',
     borderRadius: 12,
     marginVertical: 12,
     alignItems: 'center',
-    justifyContent: 'center',
-    padding: 8,
+    padding: 20,
+    justifyContent: 'space-between',
   },
   partnerImage: {
-    width: 145,
-    height: 145,
-    marginTop: 65,
+    width: screenWidth * 0.55,
+    height: screenWidth * 0.40,
+    resizeMode: 'contain',
   },
   partnerName: {
-    marginBottom: 100,
     fontSize: 13,
-    color: '#333',
+    color: 'white',
     fontWeight: '500',
     textAlign: 'center',
     fontFamily: 'TT-Hoves-Regular',

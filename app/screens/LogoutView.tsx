@@ -1,18 +1,8 @@
 import { View, Text, StyleSheet, Button, SafeAreaView } from 'react-native';
 import { Link } from 'expo-router';
 import { UserLogOut } from "../components/Logout";
-import { config } from '../constants/Keys';
-import Parse from 'parse/react-native';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const logoutView = () => {
-
-    // Set AsyncStorage for Parse
-    Parse.setAsyncStorage(AsyncStorage);
-
-    // Initialize Parse
-    Parse.initialize(config.applicationId, config.javascriptKey);
-    Parse.serverURL = config.serverURL;
 
   return (
       <SafeAreaView style={styles.container}>

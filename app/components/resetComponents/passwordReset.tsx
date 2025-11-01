@@ -2,13 +2,21 @@ import React, { FC, ReactElement } from 'react';
 import { Alert, Text, TouchableOpacity, View, StyleSheet } from 'react-native';
 import Parse from 'parse/react-native';
 import { useNavigation } from '@react-navigation/native';
+import { findEmail } from './findEmail';
 
 export const UserResetPassword: FC<{}> = (): ReactElement => {
   const navigation = useNavigation();
 
   const doUserPasswordReset = async (): Promise<boolean> => {
-    // Replace this with real email logic if needed
-    const emailValue: string = 'your@email.com';
+    let emailValue: string;
+
+    try {
+      emailValue = await findEmail();
+    } catch (err) {
+      navigation.navigate('Login');
+      return false;
+    }
+
     return await Parse.User.requestPasswordReset(emailValue)
       .then(() => {
         Alert.alert('Success!', `Please check ${emailValue} to proceed with password reset.`);
@@ -42,7 +50,7 @@ export const UserResetPassword: FC<{}> = (): ReactElement => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#1f1f1f',
     alignItems: 'center',
     justifyContent: 'center',
     paddingHorizontal: 30,
@@ -52,17 +60,17 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     textAlign: 'center',
     marginBottom: 20,
-    color: '#000',
+    color: 'white',
   },
   subtitle: {
     fontSize: 14,
     textAlign: 'center',
     marginBottom: 40,
-    color: '#333',
+    color: 'white',
   },
   button: {
     width: 250,
-    backgroundColor: '#fde68a', // Soft yellow
+    backgroundColor: '#ff66a2',
     paddingVertical: 14,
     borderRadius: 12,
     alignItems: 'center',
@@ -74,3 +82,5 @@ const styles = StyleSheet.create({
     color: '#fff',
   },
 });
+
+export default UserResetPassword;
