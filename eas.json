@@ -7,6 +7,9 @@
     "development": {
       "developmentClient": true,
       "distribution": "internal",
+      "env": {
+        "EXPO_ROUTER_APP_ROOT": "app"
+      },
       "android": {
         "image": "latest"
       },
