@@ -1,6 +1,6 @@
 import { Stack } from "expo-router";
 import { PartnerProvider } from "./components/partnerComponents/PartnerContext";
-import { UserProvider } from "./components/UserContext"; // if you already have this
+import { UserProvider } from "./components/UserContext";
 
 export default function RootLayout() {
   return (

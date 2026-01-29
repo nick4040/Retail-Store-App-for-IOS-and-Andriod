@@ -203,9 +203,10 @@ const styles = StyleSheet.create({
   },
   noDiscounts: {
     textAlign: "center",
-    marginTop: 20,
+    paddingTop: 350,
+    paddingBottom: 345,
     fontSize: 16,
-    color: "#555",
+    color: "#ffffff",
   },
   card: {
     backgroundColor: "#ff66a2",

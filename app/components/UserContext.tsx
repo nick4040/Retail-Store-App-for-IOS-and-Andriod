@@ -95,15 +95,17 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({ children
         phoneNumber: currentUser.get("phoneNumber"),
         age: currentUser.get("age"),
         role: currentUser.get("role"),
+        qrPayload: currentUser.get("qrPayload"),
+        qrCode: currentUser.get("qrCode")?.url() || "",
       };
 
       // ✅ Keep QR data from cache
-      const cached = await AsyncStorage.getItem("userProfile");
-      if (cached) {
-        const parsed = JSON.parse(cached);
-        refreshedUser.qrPayload = parsed.qrPayload;
-        refreshedUser.qrCode = parsed.qrCode;
-      }
+//       const cached = await AsyncStorage.getItem("userProfile");
+//       if (cached) {
+//         const parsed = JSON.parse(cached);
+//         refreshedUser.qrPayload = parsed.qrPayload;
+//         refreshedUser.qrCode = parsed.qrCode;
+//       }
 
       await setUser(refreshedUser);
     } catch (err) {

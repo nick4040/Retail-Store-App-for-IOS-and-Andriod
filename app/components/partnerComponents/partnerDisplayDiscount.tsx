@@ -89,6 +89,7 @@ const DiscountList: FC<DiscountListProps> = ({ companyId = "renew" }) => {
       keyExtractor={(item) => item.id}
       renderItem={renderItem}
       contentContainerStyle={styles.list}
+      scrollEnabled={false}
     />
   );
 };

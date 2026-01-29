@@ -1,6 +1,22 @@
 import Parse from "parse/react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import Constants from "expo-constants";
+import * as Crypto from "expo-crypto";
+
+// Polyfill for crypto.getRandomValues using expo-crypto
+if (typeof global.crypto === "undefined") {
+  global.crypto = {} as any;
+}
+
+if (typeof global.crypto.getRandomValues === "undefined") {
+  global.crypto.getRandomValues = function getRandomValues(array: Uint8Array) {
+    const randomBytes = Crypto.getRandomBytes(array.length);
+    for (let i = 0; i < array.length; i++) {
+      array[i] = randomBytes[i];
+    }
+    return array;
+  };
+}
 
 const { PARSE_APP_ID, PARSE_JS_KEY, PARSE_SERVER_URL } = Constants.expoConfig.extra;
 

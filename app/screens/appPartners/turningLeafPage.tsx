@@ -51,7 +51,11 @@ export default function TurningLeafPage() {
         </TouchableOpacity>
       </View>
 
+      <View style={styles.discountSection}>
+
         <DiscountList companyId="turningleaf" />
+
+      </View>
 
       <Navbar />
       </View>
@@ -61,13 +65,13 @@ export default function TurningLeafPage() {
 
 const styles = StyleSheet.create({
   containerScroll: {
-    flex: 1,
     backgroundColor: '#1f1f1f',
   },
   container: {
-    flex: 1,
     backgroundColor: "#1f1f1f",
-    paddingBottom: 75,
+    height: '100%',
+    paddingTop: 10,
+    paddingBottom: 100,
   },
   content: {
     padding: 16,
@@ -76,13 +80,9 @@ const styles = StyleSheet.create({
   topHeader: {
     flexDirection: 'row',
     justifyContent: 'space-between',
+    padding: 10,
     alignItems: 'center',
-    marginBottom: 20,
     fontFamily: 'TT-Hoves-Regular',
-  },
-  textContainer: {
-    flex: 1,
-    paddingRight: 10,
   },
   topTextDefault: {
     fontSize: screenWidth < 360 ? 16 : 18,
@@ -115,10 +115,11 @@ const styles = StyleSheet.create({
     padding: 20,
     alignItems: 'center',
     marginBottom: 20,
+    margin: 10,
   },
   cardLogo: {
     width: 350,
-    height: 350,
+    height: 250,
     marginBottom: 10,
   },
   cardTitle: {
@@ -139,7 +140,7 @@ const styles = StyleSheet.create({
     marginBottom: 16,
   },
   cardLink: {
-    fontSize: 14,
+    fontSize: 16,
     color: 'white',
     textDecorationLine: 'underline',
   },
@@ -163,6 +164,8 @@ const styles = StyleSheet.create({
     resizeMode: 'cover',
     borderRadius: 10,
     marginRight: 10,
+  },
+  discountSection: {
   },
 
 });

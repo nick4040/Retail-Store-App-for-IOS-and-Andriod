@@ -7,6 +7,7 @@ import {
   Text,
   TouchableOpacity,
   Platform,
+  ScrollView,
 } from "react-native";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { useRouter } from "expo-router";
@@ -105,43 +106,42 @@ export const PartnerDiscountUpdateForm: FC<{}> = (): ReactElement => {
   };
 
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
       <Text style={styles.title}>Create a New Discount</Text>
 
-    <LinearGradient colors={['#ff66c4', '#ffde59']} start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }} style={styles.inputWrapper}>
-      <TextInput
-        style={styles.input}
-        value={title}
-        placeholder="Give your discount a Title"
-        placeholderTextColor="#fff"
-        onChangeText={setTitle}
-      />
-    </LinearGradient>
+      <LinearGradient colors={['#ff66c4', '#ffde59']} start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }} style={styles.inputWrapper}>
+        <TextInput
+          style={styles.input}
+          value={title}
+          placeholder="Give your discount a Title"
+          placeholderTextColor="#fff"
+          onChangeText={setTitle}
+        />
+      </LinearGradient>
 
-    <LinearGradient colors={['#ff66c4', '#ffde59']} start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }} style={[styles.inputWrapper, styles.multilineWrapper]}>
-      <TextInput
-        style={[styles.input, styles.multilineInput]}
-        value={description}
-        placeholder="Describe what the discount will be"
-        placeholderTextColor="#fff"
-        onChangeText={setDescription}
-        multiline={true}
-        textAlignVertical="top"
-      />
-    </LinearGradient>
+      <LinearGradient colors={['#ff66c4', '#ffde59']} start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }} style={[styles.inputWrapper, styles.multilineWrapper]}>
+        <TextInput
+          style={[styles.input, styles.multilineInput]}
+          value={description}
+          placeholder="Describe what the discount will be"
+          placeholderTextColor="#fff"
+          onChangeText={setDescription}
+          multiline={true}
+          textAlignVertical="top"
+        />
+      </LinearGradient>
 
-    <LinearGradient colors={['#ff66c4', '#ffde59']} start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }} style={[styles.inputWrapper, styles.multilineWrapper]}>
-      <TextInput
-        style={[styles.input, styles.multilineInput]}
-        value={products}
-        placeholder="List the products you want this discount to apply to"
-        placeholderTextColor="#fff"
-        onChangeText={setProducts}
-        multiline={true}
-        textAlignVertical="top"
-      />
-    </LinearGradient>
-
+      <LinearGradient colors={['#ff66c4', '#ffde59']} start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }} style={[styles.inputWrapper, styles.multilineWrapper]}>
+        <TextInput
+          style={[styles.input, styles.multilineInput]}
+          value={products}
+          placeholder="List the products you want this discount to apply to"
+          placeholderTextColor="#fff"
+          onChangeText={setProducts}
+          multiline={true}
+          textAlignVertical="top"
+        />
+      </LinearGradient>
 
       <TouchableOpacity
         onPress={() => setShowDatePicker(true)}
@@ -182,16 +182,17 @@ export const PartnerDiscountUpdateForm: FC<{}> = (): ReactElement => {
           <QRCode value={qrPayload} size={200} />
         </ViewShot>
       )}
-    </View>
+    </ScrollView>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    justifyContent: "center",
-    padding: 20,
     backgroundColor: "#1f1f1f",
+  },
+  contentContainer: {
+    padding: 20,
+    paddingBottom: 400,
   },
   title: {
     fontSize: 24,
@@ -201,29 +202,26 @@ const styles = StyleSheet.create({
     textAlign: "center",
     fontFamily: "TT-Hoves-Regular",
   },
-    inputWrapper: {
-      width: '90%',
-      borderRadius: 15,
-      padding: 2,
-      marginVertical: 10,
-    },
-
-    multilineWrapper: {
-      minHeight: 120,
-    },
-
-    input: {
-      color: '#000000',
-      padding: 14,
-      borderRadius: 13,
-      fontSize: 16,
-    },
-
-    multilineInput: {
-      height: '100%',
-      textAlignVertical: 'top',
-    },
-   button: {
+  inputWrapper: {
+    width: '100%',
+    borderRadius: 15,
+    padding: 2,
+    marginVertical: 10,
+  },
+  multilineWrapper: {
+    minHeight: 65,
+  },
+  input: {
+    color: '#000000',
+    padding: 14,
+    borderRadius: 13,
+    fontSize: 16,
+  },
+  multilineInput: {
+    height: '50%',
+    textAlignVertical: 'top',
+  },
+  button: {
     backgroundColor: "#007AFF",
     paddingVertical: 14,
     borderRadius: 10,

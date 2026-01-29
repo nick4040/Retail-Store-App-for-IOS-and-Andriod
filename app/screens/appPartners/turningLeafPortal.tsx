@@ -19,11 +19,11 @@ export default function TurningLeafPortal() {
             Welcome back
           </Text>
           <GetName/>
-          <Text style={styles.portalText}>To The Renew Portal</Text>
+          <Text style={styles.portalText}>To The Turning Leaf Portal</Text>
         </View>
 
         <Image
-          source={require("@/assets/images/partners/renewPartner.png")}
+          source={require("@/assets/images/partners/turningLeafLogo.png")}
           style={styles.logo}
           resizeMode="cover"
         />
@@ -88,16 +88,15 @@ export default function TurningLeafPortal() {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     backgroundColor: "#1f1f1f",
     paddingHorizontal: 20,
-    paddingTop: 50,
+    paddingTop: 10,
   },
   headerRow: {
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    marginBottom: 25,
+    marginBottom: 50,
   },
   textContainer: {
     flexShrink: 1,
@@ -124,7 +123,7 @@ const styles = StyleSheet.create({
     flexWrap: "wrap",
     justifyContent: "center",
     gap: 40,
-    marginBottom: 80,
+    marginBottom: 304,
   },
   tile: {
     alignItems: "center",

@@ -1,11 +1,11 @@
-import { View, StyleSheet } from 'react-native';
-import { UserLogIn } from "./components/login";
-import { LinearGradient } from 'expo-linear-gradient';
+import { View, StyleSheet, Text } from "react-native";
+import UserLogIn from "./components/UserLogIn";
+import { LinearGradient } from "expo-linear-gradient";
 
-const logIn = () => {
+const LogIn = () => {
   return (
     <LinearGradient
-      colors={['#ff66c4', '#ffde59']} // Pink to Yellow
+      colors={["#ff66c4", "#ffde59"]}
       start={{ x: 0, y: 0 }}
       end={{ x: 1, y: 1 }}
       style={styles.container}
@@ -20,14 +20,12 @@ const logIn = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    width: "100%",
-    height: "100%",
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
   },
   innerContainer: {
-    width: '100%',
+    width: "100%",
   },
 });
 
-export default logIn;
+export default LogIn;

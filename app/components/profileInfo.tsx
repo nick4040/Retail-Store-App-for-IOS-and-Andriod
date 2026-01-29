@@ -8,7 +8,7 @@ import { UserContext } from "./UserContext";
 
 export const ProfilePage: FC<{}> = (): ReactElement => {
   const router = useRouter();
-  const { user } = useContext(UserContext); // ✅ Get QR code & profile from cache
+  const { user, refreshUser } = useContext(UserContext); // ✅ Get QR code & profile from cache
   const [userData, setUserData] = useState({
     username: '',
     email: '',
@@ -19,24 +19,22 @@ export const ProfilePage: FC<{}> = (): ReactElement => {
   });
 
   useEffect(() => {
-    async function getCurrentUser() {
-      try {
-        const currentUser = await Parse.User.currentAsync();
-        if (currentUser !== null) {
+    // Update local state when context user changes
+        if (user) {
           setUserData({
-            username: currentUser.getUsername(),
-            email: currentUser.getEmail() || 'No email provided',
-            age: currentUser.get('age') || 'Age not available',
-            fname: currentUser.get('fname') || 'First name not available',
-            lname: currentUser.get('lname') || 'Last name not available',
-            phoneNumber: currentUser.get('phoneNumber') || 'Phone number not available',
+            username: user.username || '',
+            email: user.email || 'No email provided',
+            age: user.age?.toString() || 'Age not available',
+            fname: user.fname || 'First name not available',
+            lname: user.lname || 'Last name not available',
+            phoneNumber: user.phoneNumber || 'Phone number not available',
           });
         }
-      } catch (error) {
-        handleParseError(error);
-      }
-    }
-    getCurrentUser();
+      }, [user]);
+
+      // Optional: Refresh user data when component mounts
+      useEffect(() => {
+        refreshUser();
   }, []);
 
   return (
@@ -223,9 +221,9 @@ export const ProfilePage: FC<{}> = (): ReactElement => {
 
 const styles = StyleSheet.create({
   scrollContainer: {
-    flex: 1,
     backgroundColor: '#1f1f1f',
-    paddingBottom: 75,
+    marginBottom: 50,
+    height: '100%',
   },
   qrContainer: {
     alignItems: "center",

@@ -7,22 +7,25 @@ import {
   TouchableOpacity,
   View,
   StyleSheet,
+  Platform,
 } from "react-native";
+import Parse from "./parseInit";
 import { Link, useRouter } from "expo-router";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { UserContext } from "./UserContext";
 import { PartnerContext } from "./partnerComponents/PartnerContext";
-import Parse from "./parseInit";
-import { LinearGradient } from 'expo-linear-gradient';
+import { LinearGradient } from "expo-linear-gradient";
 
-export const UserLogIn: FC<{}> = (): ReactElement => {
+const UserLogIn: FC = (): ReactElement => {
+  console.log("UserLogIn component loaded");
+
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   const router = useRouter();
   const { setUser } = useContext(UserContext);
-  const { refreshPartners } = useContext(PartnerContext); // ✅ get refreshPartners
+  const { refreshPartners } = useContext(PartnerContext);
 
   const doUserLogIn = async (): Promise<boolean> => {
     try {
@@ -64,21 +67,23 @@ export const UserLogIn: FC<{}> = (): ReactElement => {
   };
 
   return (
-    <LinearGradient
-        colors={['#ff66c4', '#ffde59']} // Pink to yellow
+    <View style={styles.container}>
+      <LinearGradient
+        colors={["#ff66c4", "#ffde59"]}
         start={{ x: 0, y: 0 }}
         end={{ x: 1, y: 1 }}
-        style={styles.overlay}
-    >
+        style={StyleSheet.absoluteFillObject}
+      />
       <Image
         source={require("@/assets/images/vip_girl_white.png")}
         style={styles.logoGirl}
       />
+
       <Text style={styles.title}>Welcome to</Text>
+
       <Image source={require("@/assets/images/kash_logo.png")} />
-      <Text style={styles.secondTitle}>
-        The Most Innovative Cannabis App.
-      </Text>
+
+      <Text style={styles.secondTitle}>The Most Innovative Cannabis App.</Text>
 
       <View style={styles.form}>
         <TextInput
@@ -100,9 +105,7 @@ export const UserLogIn: FC<{}> = (): ReactElement => {
           placeholderTextColor="#888"
         />
 
-        {errorMessage && (
-          <Text style={styles.errorText}>{errorMessage}</Text>
-        )}
+        {errorMessage && <Text style={styles.errorText}>{errorMessage}</Text>}
 
         <Link href="defaultPasswordReset" style={styles.resetLink}>
           Forgot Password?
@@ -113,7 +116,7 @@ export const UserLogIn: FC<{}> = (): ReactElement => {
         </TouchableOpacity>
 
         <Link href="signUp" style={styles.signLink}>
-          Don’t Have an Account? Sign Up Now
+          Don't Have an Account? Sign Up Now
         </Link>
 
         <View style={styles.policySection}>
@@ -126,16 +129,15 @@ export const UserLogIn: FC<{}> = (): ReactElement => {
           </Link>
         </View>
       </View>
-    </LinearGradient>
+    </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   logoGirl: {
     textAlign: "center",
   },
-  overlay: {
-    flex: 1,
+  container: {
     justifyContent: "center",
     alignItems: "center",
     paddingHorizontal: 20,
@@ -145,23 +147,27 @@ const styles = StyleSheet.create({
     textAlign: "center",
     marginTop: 5,
     marginBottom: 5,
+    fontFamily: Platform.OS === "android" ? "Roboto" : undefined,
   },
   title: {
     fontSize: 28,
-    fontWeight: "bold",
+    fontWeight: Platform.OS === "android" ? "normal" : "bold",
+    fontFamily: Platform.OS === "android" ? "Roboto" : undefined,
     color: "#fff",
     marginBottom: 10,
   },
   secondTitle: {
     fontSize: 16,
-    fontWeight: "bold",
+    fontWeight: Platform.OS === "android" ? "normal" : "bold",
+    fontFamily: Platform.OS === "android" ? "Roboto" : undefined,
     color: "#fff",
     marginTop: 10,
   },
   signLink: {
     color: "#000000",
     fontSize: 16,
-    fontWeight: "bold",
+    fontWeight: Platform.OS === "android" ? "normal" : "bold",
+    fontFamily: Platform.OS === "android" ? "Roboto" : undefined,
     marginTop: 200,
     textAlign: "center",
   },
@@ -177,22 +183,19 @@ const styles = StyleSheet.create({
     color: "#000000",
     textDecorationLine: "underline",
     marginHorizontal: 8,
+    fontFamily: Platform.OS === "android" ? "Roboto" : undefined,
   },
   separator: {
     color: "#999",
     fontSize: 14,
     marginHorizontal: 4,
+    fontFamily: Platform.OS === "android" ? "Roboto" : undefined,
   },
   form: {
     width: "100%",
     maxWidth: 400,
     borderRadius: 10,
     padding: 20,
-  },
-  loginText: {
-    fontSize: 16,
-    marginBottom: 5,
-    color: "#333",
   },
   input: {
     borderColor: "#000000",
@@ -202,11 +205,13 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     backgroundColor: "#faf6f3",
     color: "#000",
+    fontFamily: Platform.OS === "android" ? "Roboto" : undefined,
   },
   resetLink: {
     color: "#000000",
     textAlign: "right",
     marginBottom: 20,
+    fontFamily: Platform.OS === "android" ? "Roboto" : undefined,
   },
   button: {
     backgroundColor: "#faf6f3",
@@ -219,7 +224,8 @@ const styles = StyleSheet.create({
   buttonText: {
     color: "#ff66a2",
     fontSize: 16,
-    fontWeight: "bold",
+    fontWeight: Platform.OS === "android" ? "normal" : "bold",
+    fontFamily: Platform.OS === "android" ? "Roboto" : undefined,
   },
 });
 

@@ -88,7 +88,6 @@ export default function RenewPortal() {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     backgroundColor: "#1f1f1f",
     paddingHorizontal: 20,
     paddingTop: 50,
@@ -97,7 +96,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    marginBottom: 25,
+    marginBottom: 50,
   },
   textContainer: {
     flexShrink: 1,
@@ -124,7 +123,7 @@ const styles = StyleSheet.create({
     flexWrap: "wrap",
     justifyContent: "center",
     gap: 40,
-    marginBottom: 80,
+    marginBottom: 304,
   },
   tile: {
     alignItems: "center",

@@ -1,4 +1,4 @@
-// utils/handleParseError.ts
+// parseError.tsx
 import { router } from 'expo-router';
 
 export const handleParseError = (error: any) => {

@@ -34,10 +34,10 @@ const Navbar: React.FC = () => {
       end={{ x: 1, y: 1 }}
       style={[styles.navBar, { paddingBottom: bottomPad }]}
     >
-      <NavItem icon={require('@/assets/images/home_home_icon.png')} href="/screens/Home" label="Home" />
-      <NavItem icon={require('@/assets/images/home_vip.png')} href="/screens/Vip" label="Vip" />
-      <NavItem icon={require('@/assets/images/shop_nav.png')} href="https://kashmakena.squarespace.com/merch" label="Shop" />
-      <NavItem icon={require('@/assets/images/profile_nav.png')} href="/screens/Profile" label="Profile" />
+      <NavItem icon={require('@/assets/images/home_home_icon.png')} href="/screens/Home"  />
+      <NavItem icon={require('@/assets/images/home_vip.png')} href="/screens/Vip"  />
+      <NavItem icon={require('@/assets/images/shop_nav.png')} href="https://kashmakena.squarespace.com/merch"  />
+      <NavItem icon={require('@/assets/images/profile_nav.png')} href="/screens/Profile"  />
     </LinearGradient>
   );
 };
@@ -48,14 +48,12 @@ const Navbar: React.FC = () => {
 interface NavItemProps {
   icon: any;
   href: string;
-  label: string;
 }
 
 const NavItem: React.FC<NavItemProps> = ({ icon, href, label }) => (
   <Link href={href} style={styles.navItem} asChild>
     <TouchableOpacity activeOpacity={0.7} style={styles.touchable}>
       <Image source={icon} style={styles.icon} resizeMode="contain" />
-      <Text style={styles.link}>{label}</Text>
     </TouchableOpacity>
   </Link>
 );
@@ -88,17 +86,9 @@ const styles = StyleSheet.create({
     paddingHorizontal: 12,
   },
   icon: {
-    width: 40,
-    height: 40,
-    marginBottom: 4,
-  },
-  link: {
-    fontSize: 12,
-    color: '#fff',
-    textDecorationLine: 'none',
-    fontWeight: '600',
-    fontFamily: 'TT-Hoves-Regular',
-    textAlign: 'center',
+    width: 45,
+    height: 45,
+    marginTop: 0,
   },
   loadingContainer: {
     height: TAB_BAR_HEIGHT,

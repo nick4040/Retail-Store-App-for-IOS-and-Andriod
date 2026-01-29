@@ -243,8 +243,8 @@ const styles = StyleSheet.create({
   slideText: { marginTop: 30, marginLeft: 10, fontSize: 18, fontWeight: 'bold', color: '#ff66a2' },
   imageScroll: { marginHorizontal: 10, marginTop: 10 },
   thumbnailImage: { width: 150, height: 150, borderRadius: 10, marginRight: 10 },
-  partnerScroll: { marginTop: 15, marginBottom: 10 },
-  partnerCard: { backgroundColor: '#ff66a2', borderRadius: 16, width: 160, alignItems: 'center', paddingVertical: 25, paddingHorizontal: 15, marginRight: 15, shadowColor: '#000', shadowOpacity: 0.1, shadowRadius: 6, shadowOffset: { width: 0, height: 3 }, elevation: 3 },
+  partnerScroll: { marginTop: 15, marginBottom: 10, padding: 5, },
+  partnerCard: { backgroundColor: '#ff66a2', borderRadius: 16, width: 160, alignItems: 'center', paddingVertical: 25, paddingHorizontal: 15 },
   partnerImage: { width: 75, height: 175 },
   partnerText: { fontSize: 14, fontWeight: '500', textAlign: 'center', color: 'black', fontFamily: 'TT-Hoves-Regular' },
 

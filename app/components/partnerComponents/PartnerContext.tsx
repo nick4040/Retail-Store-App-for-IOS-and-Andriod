@@ -84,3 +84,5 @@ export const PartnerProvider: FC<{ children: ReactNode }> = ({ children }) => {
     </PartnerContext.Provider>
   );
 };
+
+export default PartnerProvider;

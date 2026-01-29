@@ -105,10 +105,11 @@ export const PartnerUpdateForm: FC<{}> = (): ReactElement => {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     justifyContent: "center",
     padding: 20,
     backgroundColor: "#1f1f1f",
+    paddingBottom: 300,
+    paddingTop: 250,
   },
   title: {
     fontSize: 24,
