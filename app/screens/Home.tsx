@@ -13,7 +13,7 @@ const screenWidth = Dimensions.get('window').width;
 
 const imagesEvents = [
   require('@/assets/images/flyers/flyer1.png'),
-  require('@/assets/images/flyers/flyer9.png'),
+  require('@/assets/images/flyers/flyer9.png'),npm uninstall expo-app-loading --legacy-peer-deps
   require('@/assets/images/flyers/flyer8.png'),
 ];
 
@@ -26,7 +26,7 @@ const imagesDeals = [
 ];
 
 const partners = [
-  {
+//   {
     name: "Renew Cannabis Company",
     image: require("@/assets/images/partners/renewPartner.png"),
     link: "screens/appPartners/renewPage"
