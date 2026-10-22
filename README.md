@@ -7,4 +7,4 @@ PARSE_JS_KEY=
 
 PARSE_SERVER_URL=
 
-Please note that this project uses a parse api. 
+Please note that this project uses parse api. 
